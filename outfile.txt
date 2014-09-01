@@ -1,0 +1,33 @@
+Tipo: int 
+Linea: 1 Columa: 3 lexema: int 
+Tipo: id 
+Linea: 1 Columa: 17 lexema: identificador 
+Tipo: comma 
+Linea: 1 Columa: 19 lexema: ( 
+Tipo: int 
+Linea: 1 Columa: 22 lexema: int 
+Tipo: id 
+Linea: 1 Columa: 27 lexema: cont 
+Tipo: left curly bracket 
+Linea: 1 Columa: 28 lexema: , 
+Tipo: boolean 
+Linea: 1 Columa: 36 lexema: boolean 
+Tipo: id 
+Linea: 1 Columa: 45 lexema: setblock 
+Tipo: left curly bracket 
+Linea: 1 Columa: 46 lexema: , 
+Tipo: parentesis abierto 
+Linea: 1 Columa: 47 lexema: ) 
+Tipo: right square bracket 
+Linea: 1 Columa: 48 lexema: { 
+Tipo: continue 
+Linea: 2 Columa: 9 lexema: continue 
+Tipo: backslash 
+Linea: 2 Columa: 10 lexema: ; 
+Tipo: right curly bracket 
+Linea: 3 Columa: 1 lexema: } 
+stage: parser 
+stage: Ast 
+stage: Semantic 
+stage: IRT 
+stage: Codegen 

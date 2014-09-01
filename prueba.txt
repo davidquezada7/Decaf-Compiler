@@ -1,0 +1,3 @@
+int identificador (int cont, boolean setblock,){
+	continue;
+}
