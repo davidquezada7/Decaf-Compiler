@@ -135,7 +135,9 @@ public class Compiler{
 				case "-o":
 					outname = param[cont2];
 					scanner = new Scanner(filename, outname, "end");
+					scanner.execute();												//Si no está esta linea da un error de NULLPOINTEREXCEPTION
 					parser = new CC4Parser(scanner);
+					parser.execute();
 					ast = new Ast(parser);
 					semantic = new Semantic(ast);
 					irt = new Irt(semantic);
@@ -149,13 +151,15 @@ public class Compiler{
 						case "scan":
 							System.out.println("scan");
 							scanner = new Scanner(filename, outname, target);
+							scanner.execute();
 
 							break;
 						case "parse":
 							System.out.println("parse");
 							scanner = new Scanner(filename, outname, target);
+							scanner.execute();
 							parser = new CC4Parser(scanner);
-
+							parser.execute();
 							break;
 						case "ast":
 							System.out.println("ast");

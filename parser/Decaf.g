@@ -13,7 +13,9 @@ start: (callout_decl)* (field_decl)* (method_decl)*									{System.out.println 
 
 callout_decl: KW_CALLOUT ID	PYC														{System.out.println ("		callout_decl");} ;	
 
-field_decl: type (ID COMMA| ID LSBRACKET int_literal RSBRACKET COMMA )+	PYC			{System.out.println ("		field_decl");} ;
+field_decl: type (ID | ID LSBRACKET int_literal RSBRACKET) (auxVar)*	PYC			{System.out.println ("		field_decl");} ;
+
+auxVar: COMMA (ID | ID LSBRACKET int_literal RSBRACKET )							{System.out.println (" 			auxVar");};
 
 type: (KW_INT | KW_BOOLEAN)															{System.out.println ("			type");} ;
 
@@ -29,7 +31,7 @@ statement:
 		|	KW_IF PA expr PC block (KW_ELSE block)?
 		|	KW_FOR PA ID IG expr COMMA expr PC block
 		|	KW_WHILE PA expr PC block
-		|	KW_RETURN	(expr)?
+		|	KW_RETURN	(expr)? PYC
 		|	KW_BREAK PYC
 		|  	KW_CONTINUE PYC)														{System.out.println ("			statement");} ;
 
@@ -41,10 +43,18 @@ expr:
 		( 	location
 		|	method_call
 		|	literal 
-		| 	expr bin_op expr
+		| 	expr2 bin_op expr
 		|	RES expr
 		|	NO expr
-		| 	PA expr PC)																{System.out.println ("			expr");} ;															
+		| 	PA expr PC)	                                                             {System.out.println ("			expr");} ;															
+
+expr2:
+		( 	location
+		|	method_call
+		|	literal 
+		|	RES expr
+		|	NO expr
+		| 	PA expr PC)																 {System.out.println ("			expr");} ;
 
 assign_opp: 
 		(	IG

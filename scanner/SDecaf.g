@@ -5,6 +5,9 @@ lexer grammar SDecaf;
 	import java.util.*;
 }
 
+//comentarios
+COMMENT		:	'//'(~'\n')* '\n' {skip();};
+
 //espacios en blanco
 WHITESPACE 	: 	( '\t' | ' ' | '\r' | '\n')+ {skip();} ;
 
@@ -23,8 +26,6 @@ KW_RETURN  :  'return' {System.out.println("kw_return");};
 KW_TRUE  :  'true' {System.out.println("kw_true");};
 KW_VOID  :  'void' {System.out.println("kw_void");};
 
-//comentarios
-COMMENT  : '//' '\n'  {System.out.println("Comentario");};
 
 //string
 STRING  :  '"'~('"')*'"' {System.out.println(" string");};
@@ -42,7 +43,7 @@ HEX  :  '0x' ('a'..'f' | 'A'..'F' | '0'..'9')+ {System.out.println("numero hexad
 BOOLEAN  :  ('true' | 'false') {System.out.println("boolean");};
 
 //ID
-ID  :  (('a'..'z') | ('A'..'Z')) (('a'..'z') | ('A'..'Z') | ('0'..'9'))* {System.out.println("id");};
+ID  :  (('a'..'z') | ('A'..'Z') | '_') (('a'..'z') | '_' | ('A'..'Z') | ('0'..'9'))* {System.out.println("id");};
 
 //caracteres especiales
 

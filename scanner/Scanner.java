@@ -15,7 +15,6 @@ public class Scanner {
 		this.filename = filename;
 		this.outname = outname;
 		this.target = target;
-		execute();
 	}
 
 	public void execute(){
@@ -23,7 +22,7 @@ public class Scanner {
 		int token;
 		try{
 		
-			writer = new PrintWriter(outname+".txt" ,  "UTF-8");
+			writer = new PrintWriter(outname+".s" ,  "UTF-8");
 
 		    SDecaf lexer = new SDecaf(new ANTLRFileStream(filename+".txt"));
 		    while (lexer.nextToken().getType() != Token.EOF){

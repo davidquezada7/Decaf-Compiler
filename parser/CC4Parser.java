@@ -27,8 +27,6 @@ public class CC4Parser{
 		if(this.target.equals("parse")){
 			writer.close();
 		}
-
-		execute();
 		
 	}
 
