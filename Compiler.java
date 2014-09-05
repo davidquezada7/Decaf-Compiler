@@ -150,12 +150,14 @@ public class Compiler{
 					switch(target){
 						case "scan":
 							System.out.println("scan");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							scanner.execute();
 
 							break;
 						case "parse":
 							System.out.println("parse");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							scanner.execute();
 							parser = new CC4Parser(scanner);
@@ -163,6 +165,7 @@ public class Compiler{
 							break;
 						case "ast":
 							System.out.println("ast");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							parser = new CC4Parser(scanner);
 							ast = new Ast(parser);
@@ -170,6 +173,7 @@ public class Compiler{
 							break;
 						case "semantic":
 							System.out.println("semantic");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							parser = new CC4Parser(scanner);
 							ast = new Ast(parser);
@@ -178,6 +182,7 @@ public class Compiler{
 							break;
 						case "irt":
 							System.out.println("irt");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							parser = new CC4Parser(scanner);
 							ast = new Ast(parser);
@@ -187,6 +192,7 @@ public class Compiler{
 							break;
 						case "codegen":
 							System.out.println("codegen");
+							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
 							parser = new CC4Parser(scanner);
 							ast = new Ast(parser);

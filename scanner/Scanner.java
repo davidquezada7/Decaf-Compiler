@@ -29,213 +29,213 @@ public class Scanner {
 		    	token = lexer.getType();
 		    	switch(token){
 		    		case 1:
-		    			System.out.println("Tipo: whitespace" + "\n");
-		    			writer.append("Tipo: whitespace" + "\n");
+		    			System.out.print(" Tipo: WHITESPACE ");
+		    			writer.append(" Tipo: WHITESPACE ");
 		    			break;
 		    		case 2:
-		    			System.out.println("Tipo: if " + "\n");
-		    			writer.append("Tipo: if "  + "\n");
+		    			System.out.print(" Tipo: COMMENT ");
+		    			writer.append(" Tipo: COMMENT ");
 		    			break;
 		    		case 3:
-		    			System.out.println("Tipo: boolean "  + "\n");
-		    			writer.append("Tipo: boolean "  + "\n");
+		    			System.out.print(" Tipo: KW_IF ");
+		    			writer.append(" Tipo: KW_IF ");
 		    			break;
 		    		case 4:
-		    			System.out.println("Tipo: break"  + "\n");
-		    			writer.append("Tipo: break "  + "\n");
+		    			System.out.print(" Tipo: KW_BOOLEAN ");
+		    			writer.append(" Tipo: KW_BOOLEAN ");
 		    			break;
 		    		case 5:
-		    			System.out.println("Tipo: callout"  + "\n");
-		    			writer.append("Tipo: callout "  + "\n");
+		    			System.out.print(" Tipo: callout ");
+		    			writer.append(" Tipo: callout ");
 		    			break;
 		    		case 6:
-		    			System.out.println("Tipo: continue"  + "\n");
-		    			writer.append("Tipo: continue "  + "\n");
+		    			System.out.print(" Tipo: continue ");
+		    			writer.append(" Tipo: continue ");
 		    			break;
 		    		case 7:
-		    			System.out.println("Tipo: else"  + "\n");
-		    			writer.append("Tipo: else "  + "\n");
+		    			System.out.print(" Tipo: else ");
+		    			writer.append(" Tipo: else ");
 		    			break;
 		   			case 8:
-		    			System.out.println("Tipo: false" + "\n");
-		    			writer.append("Tipo: false "  + "\n");
+		    			System.out.print(" Tipo: false ");
+		    			writer.append(" Tipo: false ");
 		    			break;
 		   			case 9:
-		    			System.out.println("Tipo: for" + "\n");
-		    			writer.append("Tipo: for "  + "\n");
+		    			System.out.print(" Tipo: for ");
+		    			writer.append(" Tipo: for ");
 		    			break;
 		   			case 10:
-		    			System.out.println("Tipo: while"  + "\n");
-		    			writer.append("Tipo: while "  + "\n");
+		    			System.out.print(" Tipo: while ");
+		    			writer.append(" Tipo: while ");
 		    			break;
 		   			case 11:
-		    			System.out.println("Tipo: int"  + "\n");
-		    			writer.append("Tipo: int "  + "\n");
+		    			System.out.print(" Tipo: int ");
+		    			writer.append(" Tipo: int ");
 		    			break;
 	    			case 12:
-		    			System.out.println("Tipo: return"  + "\n");
-		    			writer.append("Tipo: return "  + "\n");
+		    			System.out.print(" Tipo: return ");
+		    			writer.append(" Tipo: return ");
 		    			break;
 	    			case 13:
-		    			System.out.println("Tipo: true"  + "\n");
-		    			writer.append("Tipo: true "  + "\n");
+		    			System.out.print(" Tipo: true ");
+		    			writer.append(" Tipo: true ");
 		    			break;
 		    		case 14:
-		    			System.out.println("Tipo: void"  + "\n");
-		    			writer.append("Tipo: void "  + "\n");
+		    			System.out.print(" Tipo: void ");
+		    			writer.append(" Tipo: void ");
 		    			break;
 		    		case 15:
-		    			System.out.println("Tipo: comment" + "\n");
-		    			writer.append("Tipo: comment "  + "\n");
+		    			System.out.print(" Tipo: comment ");
+		    			writer.append(" Tipo: comment ");
 		    			break;
 		   			case 16:
-		    			System.out.println("Tipo: string"  + "\n");
-		    			writer.append("Tipo: string "  + "\n");
+		    			System.out.print(" Tipo: string ");
+		    			writer.append(" Tipo: string ");
 		    			break;
 		  			case 17:
-		    			System.out.println("Tipo: char"  + "\n");
-		    			writer.append("Tipo: char "  + "\n");
+		    			System.out.print(" Tipo: char ");
+		    			writer.append(" Tipo: char ");
 		    			break;
 		   			case 18:
-		    			System.out.println("Tipo: int"  + "\n");
-		    			writer.append("Tipo: int "  + "\n");
+		    			System.out.print(" Tipo: int ");
+		    			writer.append(" Tipo: int ");
 		    			break;
 	    			case 19:
-		    			System.out.println("Tipo: hex"  + "\n");
-		    			writer.append("Tipo: hex "  + "\n");
+		    			System.out.print(" Tipo: hex ");
+		    			writer.append(" Tipo: hex ");
 		    			break;
 	    			case 20:
-		    			System.out.println("Tipo: boolean"  + "\n");
-		    			writer.append("Tipo: boolean "  + "\n");
+		    			System.out.print(" Tipo: boolean ");
+		    			writer.append(" Tipo: boolean ");
 		    			break;
 		    		case 21:
-		    			System.out.println("Tipo: id"  + "\n");
-		    			writer.append("Tipo: id "   + "\n");
+		    			System.out.print(" Tipo: id ");
+		    			writer.append(" Tipo: id ");
 		    			break;
 		    		case 22:
-		    			System.out.println("Tipo: quote"  + "\n");
-		    			writer.append("Tipo: quote "  + "\n");
+		    			System.out.print(" Tipo: quote ");
+		    			writer.append(" Tipo: quote ");
 		    			break;
 		    		case 23:
-		    			System.out.println("Tipo: single quote" + "\n");
-		    			writer.append("Tipo: single quote "  + "\n");
+		    			System.out.print(" Tipo: single quote ");
+		    			writer.append(" Tipo: single quote ");
 		    			break;
 		   			case 24:
-		    			System.out.println("Tipo: backslash"  + "\n");
-		    			writer.append("Tipo: backslash "  + "\n");
+		    			System.out.print(" Tipo: backslash ");
+		    			writer.append(" Tipo: backslash ");
 		    			break;
 		   			case 25:
-		    			System.out.println("Tipo: punto y coma"  + "\n");
-		    			writer.append("Tipo: punto y coma "  + "\n");
+		    			System.out.print(" Tipo: punto y coma ");
+		    			writer.append(" Tipo: punto y coma ");
 		    			break;
 		   			case 26:
-		    			System.out.println("Tipo: left square bracket" + "\n");
-		    			writer.append("Tipo: left square bracket "  + "\n");
+		    			System.out.print(" Tipo: left square bracket ");
+		    			writer.append(" Tipo: left square bracket ");
 		    			break;
 		   			case 27:
-		    			System.out.println("Tipo: right square bracket"  + "\n");
-		    			writer.append("Tipo: right square bracket "  + "\n");
+		    			System.out.print(" Tipo: right square bracket ");
+		    			writer.append(" Tipo: right square bracket ");
 		    			break;
 	    			case 28:
-		    			System.out.println("Tipo: right curly bracket" + "\n");
-		    			writer.append("Tipo: right curly bracket "  + "\n");
+		    			System.out.print(" Tipo: right curly bracket ");
+		    			writer.append(" Tipo: right curly bracket ");
 		    			break;
 	    			case 29:
-		    			System.out.println("Tipo: left curly bracket" + "\n");
-		    			writer.append("Tipo: left curly bracket "  + "\n");
+		    			System.out.print(" Tipo: left curly bracket ");
+		    			writer.append(" Tipo: left curly bracket ");
 		    			break;
 		    		case 30:
-		    			System.out.println("Tipo: comma" + "\n");
-		    			writer.append("Tipo: comma "    + "\n");
+		    			System.out.print(" Tipo: comma ");
+		    			writer.append(" Tipo: comma ");
 		    			break;
 		    		case 31:
-		    			System.out.println("Tipo: parentesis abierto"  + "\n");
-		    			writer.append("Tipo: parentesis abierto "  + "\n");
+		    			System.out.print(" Tipo: parentesis abierto ");
+		    			writer.append(" Tipo: parentesis abierto ");
 		    			break;
 		    		case 32:
-		    			System.out.println("Tipo: parentesis cerrado"  + "\n");
-		    			writer.append("Tipo: parentesis cerrado "  + "\n");
+		    			System.out.print(" Tipo: parentesis cerrado ");
+		    			writer.append(" Tipo: parentesis cerrado ");
 		    			break;
 		   			case 33:
-		    			System.out.println("Tipo: no" + "\n");
-		    			writer.append("Tipo: no "  + "\n");
+		    			System.out.print(" Tipo: no ");
+		    			writer.append(" Tipo: no ");
 		    			break;
 		   			case 34:
-		    			System.out.println("Tipo: plus" + "\n");
-		    			writer.append("Tipo: plus "  + "\n");
+		    			System.out.print(" Tipo: plus ");
+		    			writer.append(" Tipo: plus ");
 		    			break;
 		   			case 35:
-		    			System.out.println("Tipo: division"  + "\n");
-		    			writer.append("Tipo: division "  + "\n");
+		    			System.out.print(" Tipo: division ");
+		    			writer.append(" Tipo: division ");
 		    			break;
 		   			case 36:
-		    			System.out.println("Tipo: multiplicacion" + "\n");
-		    			writer.append("Tipo: multiplicacion "  + "\n");
+		    			System.out.print(" Tipo: multiplicacion ");
+		    			writer.append(" Tipo: multiplicacion ");
 		    			break;
 	    			case 37:
-		    			System.out.println("Tipo: minus"  + "\n");
-		    			writer.append("Tipo: minus "  + "\n");
+		    			System.out.print(" Tipo: minus ");
+		    			writer.append(" Tipo: minus ");
 		    			break;
 	    			case 38:
-		    			System.out.println("Tipo: porcentaje"  + "\n");
-		    			writer.append("Tipo: porcentaje "  + "\n");
+		    			System.out.print(" Tipo: porcentaje ");
+		    			writer.append(" Tipo: porcentaje ");
 		    			break;
 		    		case 39:
-		    			System.out.println("Tipo: and"  + "\n");
-		    			writer.append("Tipo: and "  + "\n");
+		    			System.out.print(" Tipo: and ");
+		    			writer.append(" Tipo: and ");
 		    			break;
 		    		case 40:
-		    			System.out.println("Tipo: or" + "\n");
-		    			writer.append("Tipo: or "  + "\n");
+		    			System.out.print(" Tipo: or ");
+		    			writer.append(" Tipo: or ");
 		    			break;
 		    		case 41:
-		    			System.out.println("Tipo: potencia" + "\n");
-		    			writer.append("Tipo: potencia "  + "\n");
+		    			System.out.print(" Tipo: potencia ");
+		    			writer.append(" Tipo: potencia ");
 		    			break;
 		   			case 42:
-		    			System.out.println("Tipo: igual" + "\n");
-		    			writer.append("Tipo: igual "  + "\n");
+		    			System.out.print(" Tipo: igual ");
+		    			writer.append(" Tipo: igual ");
 		    			break;
 		   			case 43:
-		    			System.out.println("Tipo: doble igual" + "\n");
-		    			writer.append("Tipo: doble igual "  + "\n");
+		    			System.out.print(" Tipo: doble igual ");
+		    			writer.append(" Tipo: doble igual ");
 		    			break;
 		   			case 44:
-		    			System.out.println("Tipo: mas igual" + "\n");
-		    			writer.append("Tipo: mas igual "  + "\n");
+		    			System.out.print(" Tipo: mas igual ");
+		    			writer.append(" Tipo: mas igual ");
 		    			break;
 		   			case 45:
-		    			System.out.println("Tipo: menos igual"  + "\n");
-		    			writer.append("Tipo: menos igual "  + "\n");
+		    			System.out.print(" Tipo: menos igual ");
+		    			writer.append(" Tipo: menos igual ");
 		    			break;
 	    			case 46:
-		    			System.out.println("Tipo: mayor"  + "\n");
-		    			writer.append("Tipo: mayor "  + "\n");
+		    			System.out.print(" Tipo: mayor ");
+		    			writer.append(" Tipo: mayor ");
 		    			break;
 	    			case 47:
-		    			System.out.println("Tipo: menor" + "\n");
-		    			writer.append("Tipo: menor "  + "\n");
+		    			System.out.print(" Tipo: menor ");
+		    			writer.append(" Tipo: menor ");
 		    			break;
 		    		case 48:
-		    			System.out.println("Tipo: mayor igual"  + "\n");
-		    			writer.append("Tipo: mayor igual "  + "\n");
+		    			System.out.print(" Tipo: mayor igual ");
+		    			writer.append(" Tipo: mayor igual ");
 		    			break;
 		    		case 49:
-		    			System.out.println("Tipo: menor igual" + "\n");
-		    			writer.append("Tipo: menor igual "  + "\n");
+		    			System.out.print(" Tipo: menor igual ");
+		    			writer.append(" Tipo: menor igual ");
 		    			break;
 		    		case 50:
-		    			System.out.println("Tipo: no igual"  + "\n");
-		    			writer.append("Tipo: no igual "  + "\n");
+		    			System.out.print(" Tipo: no igual ");
+		    			writer.append(" Tipo: no igual ");
 		    			break;
 		    	}
-		    	System.out.println("Linea: " + lexer.getLine() + " ");
+		    	System.out.print("Linea: " + lexer.getLine() + " ");
 		    	writer.append("Linea: " + lexer.getLine() + " ");
-		    	System.out.println("Columna: " + lexer.getCharPositionInLine() + " ");
+		    	System.out.print("Columna: " + lexer.getCharPositionInLine() + " ");
 		    	writer.append("Columa: " + lexer.getCharPositionInLine() + " ");
 		    	System.out.println("lexema: " + lexer.getText() + " ");
-		    	writer.append("lexema: " + lexer.getText() + " ");
-		    	writer.println("");
+		    	writer.append("lexema: " + lexer.getText() + "\n ");
+		    	writer.print("");
 		    }
 		    if(this.target.equals("scan")){
 				writer.close();

@@ -21,7 +21,9 @@ type: (KW_INT | KW_BOOLEAN)															{System.out.println ("			type");} ;
 
 int_literal: (INT | HEX)															{System.out.println ("			int_literal");} ;
 
-method_decl: (type|KW_VOID) ID PA ( (type ID COMMA)+ )? PC block					{System.out.println ("		method_decl");} ;
+method_decl: (type|KW_VOID) ID PA (type ID (auxMethod)*)?  PC block					{System.out.println ("		method_decl");} ;
+
+auxMethod:  COMMA type ID;  
 
 block: LCBRACKET (field_decl)* (statement)* RCBRACKET								{System.out.println ("			block");} ;
 
@@ -62,8 +64,12 @@ assign_opp:
 		|	MIN_IG)																	{System.out.println ("			assign_opp");} ;
 
 method_call:
-		( 	method_name PA ((expr COMMA)+)? PC
-		|	method_name PA ((callout_arg COMMA)+)? PC)								{System.out.println ("			method_call");} ;
+		( 	method_name PA ((expr (auxMethodCall)*)? PC)
+		|	method_name PA (callout_arg (auxMethodCall2)*)? PC)								{System.out.println ("			method_call");} ;
+
+auxMethodCall: COMMA expr;
+
+auxMethodCall2: COMMA callout_arg;
 
 method_name: ID																		{System.out.println ("			method_name");} ;
 

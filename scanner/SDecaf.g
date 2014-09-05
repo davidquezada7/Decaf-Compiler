@@ -5,77 +5,91 @@ lexer grammar SDecaf;
 	import java.util.*;
 }
 
-//comentarios
-COMMENT		:	'//'(~'\n')* '\n' {skip();};
+
 
 //espacios en blanco
 WHITESPACE 	: 	( '\t' | ' ' | '\r' | '\n')+ {skip();} ;
 
+//comentarios
+COMMENT		:	'//'~('\n')* ('\n')? {skip();};
+
 //palabras reservadas
-KW_IF  :  'if' {System.out.println("kw_if");};
-KW_BOOLEAN  :  'boolean' {System.out.println("kw_boolean");};
-KW_BREAK  :  'break' {System.out.println("kw_break");};
-KW_CALLOUT  :  'callout' {System.out.println("kw_callout");};
-KW_CONTINUE  :  'continue' {System.out.println("kw_continue");};
-KW_ELSE  :  'else' {System.out.println("kw_else");};
-KW_FALSE  :  'false' {System.out.println("kw_false");};
-KW_FOR  :  'for' {System.out.println("kw_for");};
-KW_WHILE  :  'while' {System.out.println("kw_while");};
-KW_INT  :  'int' {System.out.println("kw_int");};
-KW_RETURN  :  'return' {System.out.println("kw_return");};
-KW_TRUE  :  'true' {System.out.println("kw_true");};
-KW_VOID  :  'void' {System.out.println("kw_void");};
+KW_IF  :  'if' {System.out.print("kw_if");};
+KW_BOOLEAN  :  'boolean' {System.out.print("kw_boolean");};
+KW_BREAK  :  'break' {System.out.print("kw_break");};
+KW_CALLOUT  :  'callout' {System.out.print("kw_callout");};
+KW_CONTINUE  :  'continue' {System.out.print("kw_continue");};
+KW_ELSE  :  'else' {System.out.print("kw_else");};
+KW_FALSE  :  'false' {System.out.print("kw_false");};
+KW_FOR  :  'for' {System.out.print("kw_for");};
+KW_WHILE  :  'while' {System.out.print("kw_while");};
+KW_INT  :  'int' {System.out.print("kw_int");};
+KW_RETURN  :  'return' {System.out.print("kw_return");};
+KW_TRUE  :  'true' {System.out.print("kw_true");};
+KW_VOID  :  'void' {System.out.print("kw_void");};
 
 
 //string
-STRING  :  '"'~('"')*'"' {System.out.println(" string");};
+STRING  :  '"' (~('\n') | (('\\')('\'')) | (('\\')('\"')) | '\t' | '\\')* '"' {System.out.print(" string");};
 
 //caracter
-CHAR  :  ('\'' . '\'') {System.out.println(" caracter ");};
+ERR1_CHAR  : '\'' '\'' 				'\'' 	 									{System.out.print(" unexpected char: ''' ");};
+ERR2_CHAR  : '\'' '\\' ~('n'|'t'|'\\'|'\"')   '\''  										{System.out.print(" unexpected char: 'p' ");};
 
-//entero
-INT : ('-')? ('0'..'9')+ {System.out.println("numero entero");};
+																	
+CHAR  :  '\'' (~('\''|'\"'|'\\'|' ') |'\\n' | '\\t' | '\\''\\'|'\\''\"')   '\'' 				{System.out.print(" caracter ");};
+
+
+ERR3_CHAR  : '\'' ~('\'') (AUXERROR3)+		'\''									{System.out.print(" unexpected char: Allowed one char ");};
+fragment AUXERROR3 : ~('\'') ;
+
+ERR4_CHAR : '\'' '\"' '\''															{System.out.print(" unexpected char: '\"' ");};
+ERR5_CHAR : '\'' '\\' '\'' '\n'															{System.out.print(" expecting ''', found '\\ n' ");};
+
+
+INT : ('-')? ('0'..'9')+ {System.out.print("numero entero");};
 
 //hexadecimal
-HEX  :  '0x' ('a'..'f' | 'A'..'F' | '0'..'9')+ {System.out.println("numero hexadecimal");};
+HEX  :  '0x' ('a'..'f' | 'A'..'F' | '0'..'9')+ {System.out.print("numero hexadecimal");};
+ERR_HEX  :  '0x'	{System.out.print("hexadecimal no valido");};
 
 //boolean
-BOOLEAN  :  ('true' | 'false') {System.out.println("boolean");};
+BOOLEAN  :  ('true' | 'false') {System.out.print("boolean");};
 
 //ID
-ID  :  (('a'..'z') | ('A'..'Z') | '_') (('a'..'z') | '_' | ('A'..'Z') | ('0'..'9'))* {System.out.println("id");};
+ID  :  (('a'..'z') | ('A'..'Z') | '_') (('a'..'z') | '_' | ('A'..'Z') | ('0'..'9'))* {System.out.print("id");};
 
 //caracteres especiales
 
-QUOTE  :  '\"'  {System.out.println("Comilla doble");};
-//SQUOTE  :  '\''  {System.out.println("Comilla simple");};
-BSLASH  :  '\\'  {System.out.println("Backslash");};
-PYC  : ';' {System.out.println(";");};
-LSBRACKET :  '[' {System.out.print(" left square bracket ");};
-RSBRACKET :  ']' {System.out.print(" right square bracket ");};
-LCBRACKET :  '{' {System.out.print(" left curly bracket ");};
-RCBRACKET :  '}' {System.out.print(" right curly bracket ");};
-COMMA : ',' {System.out.print(" coma ");};
-PA  :  '(' {System.out.print("parentesis abierto");};
-PC  :  ')' {System.out.print("parentesis cerrado");};
-NO  :  '!' {System.out.print("!");};
+QUOTE  :  '\"'  {System.out.print("\"");};
+//SQUOTE  :  '\''  {System.out.print("Comilla simple");};
+BSLASH  :  '\\'  {System.out.print("\\");};
+PYC  : ';' {System.out.print(";");};
+LSBRACKET :  '[' {System.out.print(" [ ");};
+RSBRACKET :  ']' {System.out.print(" ] ");};
+LCBRACKET :  '{' {System.out.print(" { ");};
+RCBRACKET :  '}' {System.out.print(" } ");};
+COMMA : ',' {System.out.print(" , ");};
+PA  :  '(' {System.out.print(" ( ");};
+PC  :  ')' {System.out.print(" ) ");};
+NO  :  '!' {System.out.print(" ! ");};
 
 //operadores
-PLUS : '+' {System.out.println("suma");};
-DIV  : '/' {System.out.println("división");};
-MULT : '*' {System.out.println("multiplicacion");};
-RES  : '-' {System.out.println("resta");};
-PRCNT  : '%' {System.out.println("porcentaje");};
-AND  : '&&' {System.out.println("and");};
-OR   : '||' {System.out.println("or");};
-POT  : '^' {System.out.println("potencia");};
-IG   : '=' {System.out.println("igual");};
-DIG   : '==' {System.out.println("doble igual");};
-PLUS_IG   : '+=' {System.out.println("igual");};
-MIN_IG   : '-=' {System.out.println("igual");};
-MAYOR  : '>' {System.out.println("mayor");};
-MENOR  : '<' {System.out.println("menor");};
-MAYORIGUAL  : '>=' {System.out.println("mayor o igual");};
-MENORIGUAL  : '<=' {System.out.println("menor o igual");};
-NOIGUAL  : '!=' {System.out.println("no igual");};
+PLUS : '+' {System.out.print(" + ");};
+DIV  : '/' {System.out.print(" / ");};
+MULT : '*' {System.out.print(" * ");};
+RES  : '-' {System.out.print(" - ");};
+PRCNT  : '%' {System.out.print(" % ");};
+AND  : '&&' {System.out.print(" and ");};
+OR   : '||' {System.out.print(" or ");};
+POT  : '^' {System.out.print(" ^ ");};
+IG   : '=' {System.out.print(" = ");};
+DIG   : '==' {System.out.print(" == ");};
+PLUS_IG   : '+=' {System.out.print(" += ");};
+MIN_IG   : '-=' {System.out.print(" -= ");};
+MAYOR  : '>' {System.out.print(" > ");};
+MENOR  : '<' {System.out.print(" < ");};
+MAYORIGUAL  : '>=' {System.out.print(" >= ");};
+MENORIGUAL  : '<=' {System.out.print(" <= ");};
+NOIGUAL  : '!=' {System.out.print(" != ");};
 
