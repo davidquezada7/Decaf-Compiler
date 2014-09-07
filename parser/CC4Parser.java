@@ -13,6 +13,7 @@ public class CC4Parser{
 	public PrintWriter writer;
 	public String target = null;
 	public String filename = null;
+	public Decaf decaf;
 
 	public CC4Parser(Scanner scanner){
 		this.scanner = scanner;
@@ -32,7 +33,9 @@ public class CC4Parser{
 
 	public void execute(){
 		try {	    
-			(new Decaf(new CommonTokenStream(new SDecaf(new ANTLRFileStream(filename+ ".txt"))))).start();
+			(
+
+			this.decaf = new Decaf(new CommonTokenStream(new SDecaf(new ANTLRFileStream(filename+ ".txt"))))).start();
 	    } catch (ArrayIndexOutOfBoundsException aiobe) {
 	    	System.err.println("usage: java Main <file>\nwhere file is the path to the filename with the tokens");
 	        System.exit(1);

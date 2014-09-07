@@ -12,6 +12,9 @@ import compiler.lib.*;						//Importar
 import java.io.*;
 import java.util.LinkedList;
 
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+
 public class Compiler{
 	
 
@@ -167,8 +170,11 @@ public class Compiler{
 							System.out.println("ast");
 							System.out.println("");
 							scanner = new Scanner(filename, outname, target);
+							scanner.execute();
 							parser = new CC4Parser(scanner);
+							parser.execute();
 							ast = new Ast(parser);
+							ast.execute();
 
 							break;
 						case "semantic":
