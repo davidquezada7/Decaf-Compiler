@@ -45,26 +45,31 @@ lib\Debug.class: lib\Debug.java
 
 clean:
 	del Compiler.class
-	del scanner\Scanner.class
-	del parser\CC4Parser.class
+	del scanner\*.class
 	del ast\Ast.class
 	del semantic\Semantic.class
 	del irt\Irt.class
+	
 	del codegen\Codegen.class
+	
 	del opt\ConstantFolding.class
 	del opt\Algebraic.class
 	del lib\Debug.class
+	
 	del scanner\SDecaf.java
 	del scanner\SDecaf.tokens
 	del scanner\SDecaf.class
 	
-	del parser\Decaf.class 
+
 	del parser\Decaf.java
-	del parser\Decaf.tokens
 	del parser\DecafBaseListener.java
-	del parser\DecafListener.class
-	del parser\DecafListener.java 
+	del parser\DecafListener.java
+	del parser\DecafVisitor.java
+	del parser\DecafBaseVisitor.java 
+
+	del parser\*.class parser\*~ parser\*.tokens
 
 	del ast\AstVisitor.class
 	del ast\Node.class
 	del ast\Root.class
+	del ast\*.class
