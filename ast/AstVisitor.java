@@ -142,7 +142,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		List<Decaf.StatementContext> argumentos = ctx.statement();
 		LinkedList<Terminal> l7 = new LinkedList<Terminal>();
 		LinkedList<Statement1> l1 = new LinkedList<Statement1>();
-		//LinkedList<Statement2> l2 = new LinkedList<Statement2>();
+	//	LinkedList<Statement2> l2 = new LinkedList<Statement2>();
 		LinkedList<Statement3> l3 = new LinkedList<Statement3>();
 		LinkedList<Statement4> l4 = new LinkedList<Statement4>();
 		LinkedList<Statement5> l5 = new LinkedList<Statement5>();
@@ -163,6 +163,11 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 				l5.add((Statement5)visit((Decaf.Statement5Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement6Context) {
 				l6.add((Statement6)visit((Decaf.Statement6Context)argumentos.get(i)));
+			}else if(argumentos.get(i) instanceof Decaf.Statement2Context){
+				if( ((Decaf.Statement2Context) (argumentos.get(i)) ).method_call() instanceof Decaf.MethodCall1Context){
+					System.out.println("jejejeje");
+				} 
+
 			}
 		}
 		
@@ -180,11 +185,11 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		return new Statement1(visit(location), visit(expr), visit(op));
 	}
 
-	/*@Override
+	@Override
 	public Node visitStatement2(Decaf.Statement2Context ctx){
 		Decaf.Method_callContext mcall = ctx.method_call();
 		return (visit(mcall));
-	}*/
+	}
 
 	@Override
 	public Node visitStatement3(Decaf.Statement3Context ctx){
