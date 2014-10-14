@@ -25,7 +25,7 @@ public class Scanner {
 			writer = new PrintWriter(outname+".s" ,  "UTF-8");
 
 		    SDecaf lexer = new SDecaf(new ANTLRFileStream(filename+".txt"));
-		    while (lexer.nextToken().getType() != Token.EOF){
+		    /*while (lexer.nextToken().getType() != Token.EOF){
 		    	token = lexer.getType();
 		    	switch(token){
 		    		case 1:
@@ -236,7 +236,7 @@ public class Scanner {
 		    	System.out.println("lexema: " + lexer.getText() + " ");
 		    	writer.append("lexema: " + lexer.getText() + "\n ");
 		    	writer.print("");
-		    }
+		    }*/
 		    if(this.target.equals("scan")){
 				writer.close();
 			}

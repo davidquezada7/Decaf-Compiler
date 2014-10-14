@@ -1,4 +1,4 @@
-make: lib\Debug.class opt\Algebraic.class opt\ConstantFolding.class SCANNER.CLASS PARSER.CLASS scanner\Scanner.class parser\CC4Parser.class ast\Ast.class semantic\Semantic.class irt\Irt.class codegen\Codegen.class Compiler.class
+make: lib\Debug.class opt\Algebraic.class opt\ConstantFolding.class SCANNER.CLASS PARSER.CLASS scanner\Scanner.class parser\CC4Parser.class ast\AstVisitor.class ast\Ast.class semantic\Semantic.class irt\Irt.class codegen\Codegen.class Compiler.class
 	
 Compiler.class: Compiler.java
 	javac Compiler.java
@@ -20,7 +20,11 @@ PARSER.CLASS: parser\Decaf.g
 	java org.antlr.v4.Tool -lib scanner -visitor parser\Decaf.g
 	javac parser\Decaf.java
 
+ast\AstVisitor.class: ast\AstVisitor.java
+	javac ast\AstVisitor.java
+
 ast\Ast.class: ast\Ast.java
+	javac ast\AstVisitor.java
 	javac ast\Ast.java
 	javac ast\Root.java
 

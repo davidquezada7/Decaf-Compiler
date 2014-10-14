@@ -36,26 +36,37 @@ public class Ast{
 	}
 
 	public void execute(){
-		
+		String nameArbol = "arbol.s";
 		try{ 
+
+			PrintWriter writer2 = new PrintWriter(nameArbol, "UTF-8");
+			writer2.println("digraph {");
+      		writer2.println("ordering=out;");
+      		writer2.println("ranksep=.4;");
+      		writer2.println("bgcolor=\"lightgrey\"; node [shape=box, fixedsize=false, fontsize=12, fontname=\"Helvetica-bold\", width=.25, height=.25, color=\"black\", fillcolor=\"white\", style=\"filled, solid, bold\"];");
+      		writer2.println("edge [arrowsize=.5, color=\"black\", style=\"bold\"]");
+      		writer2.close();
 	      //obtener arbol de parseo
-		this.decaf.reset();
+		  this.decaf.reset();
 	      ParseTree tree = decaf.start();
-	      System.out.println(tree.toStringTree(decaf));
+	      //System.out.println(tree.toStringTree(decaf));
 
 	      //usar visitor para recorrer el arbol y tomar los elementos que interesan
 	      AstVisitor visitor = new AstVisitor();
 
 
 	      Root root = (Root) visitor.visit(tree);
-	      root.print();			
+	      root.print();		
 		   if(this.target.equals("scan")){
 				writer.close();
 			}
+
 		} catch (ArrayIndexOutOfBoundsException aiobe) {
+			aiobe.printStackTrace();
      		 System.err.println("usage: java Main <file>\nwhere file is the path to the filename with the tokens");
      		 System.exit(1);
    		} catch (Exception e) {
+   			e.printStackTrace();
       		System.err.println("usage: java Main <file>\nwhere file is the path to the filename with the tokens");
       		System.exit(1);
     	} 
