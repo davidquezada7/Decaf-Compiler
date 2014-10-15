@@ -9,7 +9,7 @@ options {
 }
 
 
-start: (callout_decl)* (method_decl)*  (field_decl)*   										    #inicio ;
+start: (callout_decl)* (field_decl)* (method_decl)*     										    #inicio ;
 
 callout_decl: KW_CALLOUT ID PYC     														                #calloutDecl ;
 
