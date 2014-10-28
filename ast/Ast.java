@@ -39,13 +39,6 @@ public class Ast{
 		String nameArbol = "arbol.s";
 		try{ 
 
-			PrintWriter writer2 = new PrintWriter(nameArbol, "UTF-8");
-			writer2.println("digraph {");
-      		writer2.println("ordering=out;");
-      		writer2.println("ranksep=.4;");
-      		writer2.println("bgcolor=\"lightgrey\"; node [shape=box, fixedsize=false, fontsize=12, fontname=\"Helvetica-bold\", width=.25, height=.25, color=\"black\", fillcolor=\"white\", style=\"filled, solid, bold\"];");
-      		writer2.println("edge [arrowsize=.5, color=\"black\", style=\"bold\"]");
-      		writer2.close();
 	      //obtener arbol de parseo
 		  this.decaf.reset();
 	      ParseTree tree = decaf.start();
@@ -56,10 +49,8 @@ public class Ast{
 
 
 	      Root root = (Root) visitor.visit(tree);
-	      root.print();		
-		   if(this.target.equals("scan")){
-				writer.close();
-			}
+	      root.print();	
+
 
 		} catch (ArrayIndexOutOfBoundsException aiobe) {
 			aiobe.printStackTrace();

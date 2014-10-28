@@ -142,7 +142,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		List<Decaf.StatementContext> argumentos = ctx.statement();
 		LinkedList<Terminal> l7 = new LinkedList<Terminal>();
 		LinkedList<Statement1> l1 = new LinkedList<Statement1>();
-		LinkedList<AuxMCall1> l2 = new LinkedList<AuxMCall1>();
+		LinkedList<Pnode> l2 = new LinkedList<Pnode>();
 		LinkedList<Statement3> l3 = new LinkedList<Statement3>();
 		LinkedList<Statement4> l4 = new LinkedList<Statement4>();
 		LinkedList<Statement5> l5 = new LinkedList<Statement5>();
@@ -164,7 +164,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			}else if (argumentos.get(i) instanceof Decaf.Statement6Context) {
 				l6.add((Statement6)visit((Decaf.Statement6Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement2Context) {
-				l2.add((AuxMCall1)visit((Decaf.Statement2Context)argumentos.get(i)));
+				l2.add((Pnode)visit((Decaf.Statement2Context)argumentos.get(i)));
 			}
 		}
 		
@@ -182,11 +182,11 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		return new Statement1(visit(location), visit(expr), visit(op));
 	}
 
-	/*@Override
+	@Override
 	public Node visitStatement2(Decaf.Statement2Context ctx){
 		Decaf.Method_callContext mcall = ctx.method_call();
-		return (visit(mcall));
-	}*/
+		return new Pnode (visit(mcall));
+	}
 
 	@Override
 	public Node visitStatement3(Decaf.Statement3Context ctx){
@@ -417,34 +417,29 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 	}
 
 	@Override
-	public Node visitMethodCall1(Decaf.MethodCall1Context ctx){
+	public Node visitMethodcall(Decaf.MethodcallContext ctx){
 		String id = ctx.ID().getSymbol().getText();
-		LinkedList<Node> expresiones = new LinkedList<Node>();
-		if(ctx.expr(0) == null){
-			return new AuxMCall1(id, null);			
-		}else{
-			for(Decaf.ExprContext expr : ctx.expr()){
-			expresiones.add(visit(expr));
+		LinkedList<Node> argumentos = new LinkedList<Node>();
+		List<Decaf.Callout_argContext> cL = null;
+		List<Decaf.ExprContext> eL = null;
+		Decaf.Method_call_calloutContext calloutL = ctx.method_call_callout();
+		Decaf.Method_call_exprContext expL = ctx.method_call_expr();
+
+
+		if((ctx.method_call_expr() == null) && (ctx.method_call_callout() == null)){
+			return new AuxMCall1 (id, null);
+		}else if(ctx.method_call_expr() == null){
+			cL = calloutL.callout_arg();
+			for (int n = 0; n < cL.size() ; n++) {
+				argumentos.add(visit(cL.get(n)));
 			}
-			return new AuxMCall1(id, expresiones);
+			return new AuxMCall1 (id, argumentos);
+		}else{
+			eL = expL.expr();
+			for (int n = 0; n < eL.size() ; n++) {
+				argumentos.add(visit(eL.get(n)));
+			}
+			return new AuxMCall1 (id, argumentos);
 		}
 	}
-
-	@Override
-	public Node visitMethodCall2(Decaf.MethodCall2Context ctx){
-		String id = ctx.ID().getSymbol().getText();
-		LinkedList<Node> callarg = new LinkedList<Node>();
-		if(ctx.callout_arg(0) == null){
-			return new AuxMCall1(id, null);			
-		}else{
-			for(Decaf.Callout_argContext argu : ctx.callout_arg()){
-				callarg.add(visit(argu));
-			}
-			return new AuxMCall1(id, callarg);
-		}
-	}
-	
-
-
-
 }

@@ -223,6 +223,18 @@ public class DecafBaseListener implements DecafListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodcall(@NotNull Decaf.MethodcallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodcall(@NotNull Decaf.MethodcallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlocke(@NotNull Decaf.BlockeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -271,25 +283,13 @@ public class DecafBaseListener implements DecafListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethodCall1(@NotNull Decaf.MethodCall1Context ctx) { }
+	@Override public void enterMethod_call_callout(@NotNull Decaf.Method_call_calloutContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethodCall1(@NotNull Decaf.MethodCall1Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMethodCall2(@NotNull Decaf.MethodCall2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMethodCall2(@NotNull Decaf.MethodCall2Context ctx) { }
+	@Override public void exitMethod_call_callout(@NotNull Decaf.Method_call_calloutContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -422,6 +422,18 @@ public class DecafBaseListener implements DecafListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteralChar(@NotNull Decaf.LiteralCharContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMethod_call_expr(@NotNull Decaf.Method_call_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethod_call_expr(@NotNull Decaf.Method_call_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

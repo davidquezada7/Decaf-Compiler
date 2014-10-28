@@ -62,10 +62,10 @@ expr2:
   ;
 assign_opp: (IG|PLUS_IG|MIN_IG)										                         #assignOp;
 
-method_call:
-   ID PA ((expr (COMMA expr)*)? PC)    											           #methodCall1
-  | ID PA (callout_arg (COMMA callout_arg)*)? PC      									       #methodCall2
-  ;
+method_call: ID PA (method_call_expr | method_call_callout)? PC          #methodcall;
+
+method_call_expr: expr (COMMA expr)*;
+method_call_callout: callout_arg (COMMA callout_arg)*;
 
 
 callout_arg: 

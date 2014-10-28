@@ -13,8 +13,10 @@ public class AuxMCall1 extends Node{
 
 	public void print(String padding){
 		System.out.print(padding + id);
-		for (int i = 0;i < expresiones.size() ;i++ ) {
-			this.expresiones.get(i).print(padding);
+		if(expresiones != null){
+			for (int i = 0;i < expresiones.size() ;i++ ) {
+				this.expresiones.get(i).print(padding);
+			}
 		}
 	}
 }

@@ -132,6 +132,13 @@ public interface DecafVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement2(@NotNull Decaf.Statement2Context ctx);
 	/**
+	 * Visit a parse tree produced by the {@code methodcall}
+	 * labeled alternative in {@link Decaf#method_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodcall(@NotNull Decaf.MethodcallContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code blocke}
 	 * labeled alternative in {@link Decaf#block}.
 	 * @param ctx the parse tree
@@ -158,19 +165,11 @@ public interface DecafVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr2(@NotNull Decaf.Expr2Context ctx);
 	/**
-	 * Visit a parse tree produced by the {@code methodCall1}
-	 * labeled alternative in {@link Decaf#method_call}.
+	 * Visit a parse tree produced by {@link Decaf#method_call_callout}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMethodCall1(@NotNull Decaf.MethodCall1Context ctx);
-	/**
-	 * Visit a parse tree produced by the {@code methodCall2}
-	 * labeled alternative in {@link Decaf#method_call}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethodCall2(@NotNull Decaf.MethodCall2Context ctx);
+	T visitMethod_call_callout(@NotNull Decaf.Method_call_calloutContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Decaf#arr}.
 	 * @param ctx the parse tree
@@ -247,6 +246,12 @@ public interface DecafVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteralChar(@NotNull Decaf.LiteralCharContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Decaf#method_call_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethod_call_expr(@NotNull Decaf.Method_call_exprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code bin9}
 	 * labeled alternative in {@link Decaf#bin_op}.
