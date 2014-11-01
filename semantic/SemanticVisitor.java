@@ -87,10 +87,12 @@ public class SemanticVisitor{
 		}
 
 		//agregamos el tipo de metodo que es, accesando al campo 'tipo' de la clase Table
-		nuevaTabla.tipo = tipo;
-
+		nuevaTabla.tipo = tipo;	
 		Block nodoBlock = methodDecl.bloque;
-		visitBlock(nodoBlock,nuevaTabla);
+		if(nodoBlock != null){
+			
+			visitBlock(nodoBlock,nuevaTabla);
+		}
 
 	
 	}
@@ -101,16 +103,28 @@ public class SemanticVisitor{
 			visitFieldDeclaration(lista.get(i), tabla);
 		}
 
-		LinkedList<IfStatement> nodoIf = block.statements3;
-		for (int i = 0;i<nodoIf.size() ;i++ ) {
-			visitIfStatement(nodoIf.get(i), tabla);
-		}
+		//Utilizamos instanceof para verificar a que tipo de clase corresponde
+		//listaNodos puede ser "Terminal", "Asignation", "IfStatement","ForStatement","WhileStatement",
+		//"ReturnStatement" o "Pnode"
+		LinkedList<Node> listaNodos = block.statements;
+		
+		for (int i = 0;i<listaNodos.size() ;i++ ) {
+			if(listaNodos.get(i) instanceof IfStatement){
+				visitIfStatement((IfStatement)listaNodos.get(i), tabla);
+			}
+		}	
+		
 
 	}
 
-
+	//crear nuevo scope cada vez que se llame a If
 	public void visitIfStatement(IfStatement ifStatement, Table tabla){
 		System.out.println("entro a if statement");
-		//Block bloque1 = ifStatement.block1;
+		Block bloque1 = ifStatement.block1;
+		Block bloque2 = ifStatement.block2;
+		String kwElse = ifStatement.kwELSE;
+		
+
+
 	}
 }

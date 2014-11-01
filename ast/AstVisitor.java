@@ -140,37 +140,39 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		}
 
 		List<Decaf.StatementContext> argumentos = ctx.statement();
-		LinkedList<Terminal> l7 = new LinkedList<Terminal>();
-		LinkedList<Asignation> l1 = new LinkedList<Asignation>();
-		LinkedList<Pnode> l2 = new LinkedList<Pnode>();
-		LinkedList<IfStatement> l3 = new LinkedList<IfStatement>();
-		LinkedList<ForStatement> l4 = new LinkedList<ForStatement>();
-		LinkedList<WhileStatement> l5 = new LinkedList<WhileStatement>();
-		LinkedList<ReturnStatement> l6 = new LinkedList<ReturnStatement>();
+		
+		LinkedList<Node> statements = new LinkedList<Node>();
+		// LinkedList<Terminal> l7 = new LinkedList<Terminal>();
+		// LinkedList<Asignation> l1 = new LinkedList<Asignation>();
+		// LinkedList<Pnode> l2 = new LinkedList<Pnode>();
+		// LinkedList<IfStatement> l3 = new LinkedList<IfStatement>();
+		// LinkedList<ForStatement> l4 = new LinkedList<ForStatement>();
+		// LinkedList<WhileStatement> l5 = new LinkedList<WhileStatement>();
+		// LinkedList<ReturnStatement> l6 = new LinkedList<ReturnStatement>();
 
 		for (int i = 0;i < argumentos.size() ;i++ ) {
 			if (argumentos.get(i) instanceof Decaf.Statement7Context) {
-				l7.add((Terminal)visit((Decaf.Statement7Context)argumentos.get(i)));
+				statements.add((Terminal)visit((Decaf.Statement7Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement8Context) {
-				l7.add((Terminal)visit((Decaf.Statement8Context)argumentos.get(i)));
+				statements.add((Terminal)visit((Decaf.Statement8Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement1Context) {
-				l1.add((Asignation)visit((Decaf.Statement1Context)argumentos.get(i)));
+				statements.add((Asignation)visit((Decaf.Statement1Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement3Context) {
-				l3.add((IfStatement)visit((Decaf.Statement3Context)argumentos.get(i)));
+				statements.add((IfStatement)visit((Decaf.Statement3Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement4Context) {
-				l4.add((ForStatement)visit((Decaf.Statement4Context)argumentos.get(i)));
+				statements.add((ForStatement)visit((Decaf.Statement4Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement5Context) {
-				l5.add((WhileStatement)visit((Decaf.Statement5Context)argumentos.get(i)));
+				statements.add((WhileStatement)visit((Decaf.Statement5Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement6Context) {
-				l6.add((ReturnStatement)visit((Decaf.Statement6Context)argumentos.get(i)));
+				statements.add((ReturnStatement)visit((Decaf.Statement6Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement2Context) {
-				l2.add((Pnode)visit((Decaf.Statement2Context)argumentos.get(i)));
+				statements.add((Pnode)visit((Decaf.Statement2Context)argumentos.get(i)));
 			}
 		}
 		
 		
 
-		return new Block(campos, l7, l1, l3, l4, l5, l6, l2);
+		return new Block(campos, statements);
 	}
 
 	@Override
