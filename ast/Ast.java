@@ -17,6 +17,9 @@ public class Ast{
 	public String filename = null;
 	public Scanner scanner;
 	public Decaf decaf;
+	public Root root;
+	public AstVisitor visitor;
+	public ParseTree tree;
 
 	public Ast(CC4Parser parser){
 		this.parser = parser;
@@ -41,14 +44,14 @@ public class Ast{
 
 	      //obtener arbol de parseo
 		  this.decaf.reset();
-	      ParseTree tree = decaf.start();
+	      tree = decaf.start();
 	      //System.out.println(tree.toStringTree(decaf));
 
 	      //usar visitor para recorrer el arbol y tomar los elementos que interesan
-	      AstVisitor visitor = new AstVisitor();
+	      visitor = new AstVisitor();
 
 
-	      Root root = (Root) visitor.visit(tree);
+	      root = (Root) visitor.visit(tree);
 	      root.print();	
 
 

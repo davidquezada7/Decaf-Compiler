@@ -1,0 +1,30 @@
+UNICIDAD
+	
+	Verificamos en la gramatica donde existen posibles declaraciones de metodos y de variables.
+	
+	Codeamos los posibles caminos para llegar a una declaracion de metodo o de variable.
+
+	No pueden existir más de una declaración de método o variable dos veces con el mismo nombre.
+
+	Field Declaration:
+
+		Como field declaration se puede usar no solo al principio, si no que luego en method call, entonces
+		recibimos como parametro una tabla, la tabla en el actual scope, para la parte de la gramatica:
+		start: (callout_decl)* (field_decl)* (method_decl)*  la tabla que recibe sera la tabla 
+		padre(obviamente)
+
+		Para los arreglos se hace caso omiso del valor del tamano del arreglo, solamente tomamos el nombre de la variable y verificamos en la tabla que no existiera y se agregaron como cualquier otra variable
+
+		EJEMPLO 1: ACEPTADA
+
+			int a, b, c, d;
+			boolean e, f, g;
+
+		EJEMPLO 2: RECHAZADA
+
+			int a, b;
+			boolean a[];
+
+	Method Declaration:
+
+		Empezamos a recorrer por methos declaration

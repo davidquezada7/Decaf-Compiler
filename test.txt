@@ -1,27 +1,5 @@
-  boolean b;
-  
-  int abs(int a) {
-    b = a < 0;
-
-    if (b) {
-      return -a;
-    }
-    else {
-      return a;
-    }
-  }
-
-  void main() {
-    abs();
-  }
-
-
-
-
- 
-
- 
-
-
-
-//no paso el legal 15, 12, 11, 6
+int a(){
+    int a;
+    boolean b;
+    int b;
+}

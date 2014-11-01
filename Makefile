@@ -31,6 +31,7 @@ ast\Ast.class: ast\Ast.java
 
 semantic\Semantic.class: semantic\Semantic.java
 	javac semantic\Semantic.java
+	javac semantic\SemanticVisitor.java
 
 irt\Irt.class: irt\Irt.java
 	javac irt\Irt.java
@@ -62,7 +63,7 @@ clean:
 	
 	del scanner\SDecaf.java
 	del scanner\SDecaf.tokens
-	del scanner\SDecaf.class
+
 	
 
 	del parser\Decaf.java

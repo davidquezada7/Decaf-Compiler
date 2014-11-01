@@ -180,10 +180,18 @@ public class Compiler{
 						case "semantic":
 							System.out.println("semantic");
 							System.out.println("");
+							
 							scanner = new Scanner(filename, outname, target);
+							scanner.execute();
+							
 							parser = new CC4Parser(scanner);
+							parser.execute();
+							
 							ast = new Ast(parser);
+							ast.execute();
+							
 							semantic = new Semantic(ast);
+							semantic.execute();
 
 							break;
 						case "irt":
