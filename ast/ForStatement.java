@@ -2,7 +2,7 @@ package compiler.ast;
 
 import java.util.*;
 
-public class Statement4 extends Node{
+public class ForStatement extends Node{
 	public String kwFOR;
 	public String id;
 	public String ig;
@@ -10,7 +10,7 @@ public class Statement4 extends Node{
 	public Node expr2;
 	public Node block;
 
-	public Statement4(String kwFOR, String id, String ig, Node expr1, Node expr2, Node block){
+	public ForStatement(String kwFOR, String id, String ig, Node expr1, Node expr2, Node block){
 		this.kwFOR = kwFOR;
 		this.id = id;
 		this.ig = ig;

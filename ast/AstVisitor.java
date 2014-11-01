@@ -141,12 +141,12 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 
 		List<Decaf.StatementContext> argumentos = ctx.statement();
 		LinkedList<Terminal> l7 = new LinkedList<Terminal>();
-		LinkedList<Statement1> l1 = new LinkedList<Statement1>();
+		LinkedList<Asignation> l1 = new LinkedList<Asignation>();
 		LinkedList<Pnode> l2 = new LinkedList<Pnode>();
-		LinkedList<Statement3> l3 = new LinkedList<Statement3>();
-		LinkedList<Statement4> l4 = new LinkedList<Statement4>();
-		LinkedList<Statement5> l5 = new LinkedList<Statement5>();
-		LinkedList<Statement6> l6 = new LinkedList<Statement6>();
+		LinkedList<IfStatement> l3 = new LinkedList<IfStatement>();
+		LinkedList<ForStatement> l4 = new LinkedList<ForStatement>();
+		LinkedList<WhileStatement> l5 = new LinkedList<WhileStatement>();
+		LinkedList<ReturnStatement> l6 = new LinkedList<ReturnStatement>();
 
 		for (int i = 0;i < argumentos.size() ;i++ ) {
 			if (argumentos.get(i) instanceof Decaf.Statement7Context) {
@@ -154,15 +154,15 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			}else if (argumentos.get(i) instanceof Decaf.Statement8Context) {
 				l7.add((Terminal)visit((Decaf.Statement8Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement1Context) {
-				l1.add((Statement1)visit((Decaf.Statement1Context)argumentos.get(i)));
+				l1.add((Asignation)visit((Decaf.Statement1Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement3Context) {
-				l3.add((Statement3)visit((Decaf.Statement3Context)argumentos.get(i)));
+				l3.add((IfStatement)visit((Decaf.Statement3Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement4Context) {
-				l4.add((Statement4)visit((Decaf.Statement4Context)argumentos.get(i)));
+				l4.add((ForStatement)visit((Decaf.Statement4Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement5Context) {
-				l5.add((Statement5)visit((Decaf.Statement5Context)argumentos.get(i)));
+				l5.add((WhileStatement)visit((Decaf.Statement5Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement6Context) {
-				l6.add((Statement6)visit((Decaf.Statement6Context)argumentos.get(i)));
+				l6.add((ReturnStatement)visit((Decaf.Statement6Context)argumentos.get(i)));
 			}else if (argumentos.get(i) instanceof Decaf.Statement2Context) {
 				l2.add((Pnode)visit((Decaf.Statement2Context)argumentos.get(i)));
 			}
@@ -179,7 +179,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		Decaf.Assign_oppContext op = ctx.assign_opp();
 		Decaf.ExprContext expr = ctx.expr();
 		Decaf.LocationContext location = ctx.location();
-		return new Statement1(visit(location), visit(expr), visit(op));
+		return new Asignation(visit(location), visit(expr), visit(op));
 	}
 
 	@Override
@@ -194,11 +194,11 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		Decaf.ExprContext expr = ctx.expr();
 		Decaf.BlockContext block1 = ctx.block(0);
 		if (ctx.KW_ELSE() == null) {
-			return new Statement3(kwIF, visit(expr), visit(block1), null, null);
+			return new IfStatement(kwIF, visit(expr), visit(block1), null, null);
 		}else{
 			String kwELSE = ctx.KW_ELSE().getSymbol().getText();
 			Decaf.BlockContext block2 = ctx.block(1);
-			return new Statement3(kwIF, visit(expr), visit(block1), kwELSE,visit(block2));
+			return new IfStatement(kwIF, visit(expr), visit(block1), kwELSE,visit(block2));
 		}
 	}
 
@@ -210,7 +210,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		Decaf.ExprContext expr1 = ctx.expr(0);
 		Decaf.ExprContext expr2 = ctx.expr(1);
 		Decaf.BlockContext block = ctx.block();
-		return new Statement4(kwFOR, id, ig, visit(expr1), visit(expr2), visit(block));
+		return new ForStatement(kwFOR, id, ig, visit(expr1), visit(expr2), visit(block));
 	}
 
 	@Override
@@ -218,17 +218,17 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		String kwWHILE = ctx.KW_WHILE().getSymbol().getText();
 		Decaf.ExprContext expr = ctx.expr();
 		Decaf.BlockContext block = ctx.block();
-		return new Statement5(kwWHILE, visit(expr), visit(block));
+		return new WhileStatement(kwWHILE, visit(expr), visit(block));
 	}
 
 	@Override
 	public Node visitStatement6(Decaf.Statement6Context ctx){
 		String retorno = ctx.KW_RETURN().getSymbol().getText();
 		if (ctx.expr() == null) {
-			return new Statement6(retorno, null);
+			return new ReturnStatement(retorno, null);
 		}else{
 			Decaf.ExprContext expr = ctx.expr();
-			return new Statement6(retorno, visit(expr));
+			return new ReturnStatement(retorno, visit(expr));
 		}
 	}
 
@@ -320,14 +320,14 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 	public Node visitBin1(Decaf.Bin1Context ctx){
 		String op = ctx.RES().getSymbol().getText();
 		Decaf.Bin_opContext binop = ctx.bin_op();
-		return new Binop1(op, visit(binop));
+		return new Res(op, visit(binop));
 	}
 
 	@Override
 	public Node visitBin2(Decaf.Bin2Context ctx){
 		String op = ctx.NO().getSymbol().getText();
 		Decaf.Bin_opContext binop = ctx.bin_op();
-		return new Binop1(op, visit(binop));
+		return new Negation(op, visit(binop));
 	}
 
 	@Override
@@ -343,7 +343,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			op = ctx.MULT().getSymbol().getText();
 		}
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new IntBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override
@@ -357,7 +357,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			op = ctx.PLUS().getSymbol().getText();
 		}
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new IntBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override
@@ -375,7 +375,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			op = ctx.MENOR().getSymbol().getText();
 		}
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new ComparisonBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override
@@ -389,7 +389,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 			op = ctx.DIG().getSymbol().getText();
 		}
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new ComparisonBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override
@@ -398,7 +398,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		String op = ctx.AND().getSymbol().getText();
 		Decaf.Bin_opContext binop2 = ctx.bin_op(1);
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new BooleanBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override
@@ -407,7 +407,7 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		String op = ctx.OR().getSymbol().getText();
 		Decaf.Bin_opContext binop2 = ctx.bin_op(1);
 
-		return new Binop2(visit(binop1), op, visit(binop2));
+		return new BooleanBinOp(visit(binop1), op, visit(binop2));
 	}
 
 	@Override

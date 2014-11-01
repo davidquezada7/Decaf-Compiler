@@ -2,11 +2,11 @@ package compiler.ast;
 
 import java.util.*;
 
-public class Statement6 extends Node{
+public class ReturnStatement extends Node{
 	public String retorno;
 	public Node expresion;
 
-	public Statement6(String retorno, Node expresion){
+	public ReturnStatement(String retorno, Node expresion){
 		this.retorno = retorno;
 		this.expresion = expresion;
 	}

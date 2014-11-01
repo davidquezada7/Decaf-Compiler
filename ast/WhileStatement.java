@@ -2,12 +2,12 @@ package compiler.ast;
 
 import java.util.*;
 
-public class Statement5 extends Node{
+public class WhileStatement extends Node{
 	public String kwWHILE;
 	public Node expr;
 	public Node block;
 
-	public Statement5(String kwWHILE, Node expr, Node block){
+	public WhileStatement(String kwWHILE, Node expr, Node block){
 		this.kwWHILE = kwWHILE;
 		this.expr = expr;
 		this.block = block;

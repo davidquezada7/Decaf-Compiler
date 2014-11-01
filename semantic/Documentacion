@@ -27,4 +27,57 @@ UNICIDAD
 
 	Method Declaration:
 
-		Empezamos a recorrer por methos declaration
+		Empezamos a recorrer por methos declaration.
+
+
+
+NOTA: Se agruparon las correspondientes clases a las siguientes reglas de produccion, por cuestion
+  	  de sentido y significado:
+
+  	  Res
+  	  			#bin1
+  	  Negation:
+  	  			#bin2
+  	  IntBinOp:
+  	  			#bin3
+  	  			#bin4
+  	  ComparisonBinOp
+  	  			#bin5
+  	  			#bin6
+  	  BooleanBinOp
+  	  			#bin7
+  	  			#bin8
+
+  	  IntBinOp soporta:
+		  	  			numeros, 
+		  	  			variables que sean numeros
+
+  	  ComparisonBinOp soporta:
+
+  	  					numeros,
+  	  					variables que sean numeros
+  	  BooleanBinOp soporta:
+
+  	  					booleans,
+  	  					variables que sean booleanos
+  	  					expresiones que devuelvan booleanos (ComparisonBinOp)
+
+  	  Negation:
+
+bin_op:
+    RES bin_op             										             #bin1
+  | NO bin_op           													 #bin2
+  | bin_op (MULT|DIV|PRCNT) bin_op             								 #bin3		
+  | bin_op (PLUS|RES) bin_op             									 #bin4
+  | bin_op (MENOR|MAYOR|MENORIGUAL|MAYORIGUAL) bin_op             			 #bin5							
+  | bin_op (DIG|NOIGUAL) bin_op                                              #bin6
+  | bin_op AND bin_op                                                        #bin7
+  | bin_op OR bin_op            								             #bin8
+  | expr2                                                                    #bin9
+   ;
+
+
+
+   Habia una clase llamada Statement1 se cambio de nombre a Asignation, ya que es mas representativo
+
+   

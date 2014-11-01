@@ -2,11 +2,11 @@ package compiler.ast;
 
 import java.util.*;
 
-public class Binop1 extends Node{
+public class Res extends Node{
 	public String op;
 	public Node binop;
 
-	public Binop1(String op, Node binop){
+	public Res(String op, Node binop){
 		this.op = op;
 		this.binop = binop;
 	}

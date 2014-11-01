@@ -7,14 +7,14 @@ import compiler.parser.DecafBaseVisitor;
 public class Block extends Node{
 	public LinkedList<FieldDeclaration> fields;
 	public LinkedList<Terminal> statements;
-	public LinkedList<Statement1> statements1;
+	public LinkedList<Asignation> statements1;
 	public LinkedList<Pnode> statements2;
-	public LinkedList<Statement3> statements3;
-	public LinkedList<Statement4> statements4;
-	public LinkedList<Statement5> statements5;
-	public LinkedList<Statement6> statements6;
+	public LinkedList<IfStatement> statements3;
+	public LinkedList<ForStatement> statements4;
+	public LinkedList<WhileStatement> statements5;
+	public LinkedList<ReturnStatement> statements6;
 
-	public Block(LinkedList<FieldDeclaration> f, LinkedList<Terminal> statements, LinkedList<Statement1> statements1,LinkedList<Statement3> statements3, LinkedList<Statement4> statements4, LinkedList<Statement5> statements5, LinkedList<Statement6> statements6, LinkedList<Pnode> statement2){
+	public Block(LinkedList<FieldDeclaration> f, LinkedList<Terminal> statements, LinkedList<Asignation> statements1,LinkedList<IfStatement> statements3, LinkedList<ForStatement> statements4, LinkedList<WhileStatement> statements5, LinkedList<ReturnStatement> statements6, LinkedList<Pnode> statement2){
 		//System.out.print("holi");
 		this.fields = f;
 		this.statements = statements;

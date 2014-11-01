@@ -1,5 +1,7 @@
+boolean b;
 int a(){
-    int a;
-    boolean b;
-    int b;
+    if(d){
+    
+    }
+
 }

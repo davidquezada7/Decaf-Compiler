@@ -2,14 +2,14 @@ package compiler.ast;
 
 import java.util.*;
 
-public class Statement3 extends Node{
+public class IfStatement extends Node{
 	public String kwIF;
 	public Node expr;
 	public Node block1;
 	public Node block2;
 	public String kwELSE;
 
-	public Statement3(String kwIF, Node expr, Node block1, String kwELSE, Node block2){
+	public IfStatement(String kwIF, Node expr, Node block1, String kwELSE, Node block2){
 		this.kwIF = kwIF;
 		this.expr = expr;
 		this.block1 = block1;

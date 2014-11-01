@@ -59,7 +59,7 @@ public class SemanticVisitor{
 		List tipos = methodDecl.type;
 		
 
-		System.out.println(nombre +" "+tipo);
+		//System.out.println(nombre +" "+tipo);
 		//agregamos el nombre de la funcion a la tabla, y en el value se crea el nuevo scope
 		tabla.addToFunciones(nombre, tabla);
 		//obtenemos el nuevo scope del metodo
@@ -89,8 +89,10 @@ public class SemanticVisitor{
 		//agregamos el tipo de metodo que es, accesando al campo 'tipo' de la clase Table
 		nuevaTabla.tipo = tipo;
 
-		Block nodo = methodDecl.bloque;
-		visitBlock(nodo,nuevaTabla);
+		Block nodoBlock = methodDecl.bloque;
+		visitBlock(nodoBlock,nuevaTabla);
+
+	
 	}
 
 	public void visitBlock(Block block, Table tabla){
@@ -98,5 +100,17 @@ public class SemanticVisitor{
 		for (int i = 0;i<lista.size() ;i++ ) {
 			visitFieldDeclaration(lista.get(i), tabla);
 		}
+
+		LinkedList<IfStatement> nodoIf = block.statements3;
+		for (int i = 0;i<nodoIf.size() ;i++ ) {
+			visitIfStatement(nodoIf.get(i), tabla);
+		}
+
+	}
+
+
+	public void visitIfStatement(IfStatement ifStatement, Table tabla){
+		System.out.println("entro a if statement");
+		//Block bloque1 = ifStatement.block1;
 	}
 }

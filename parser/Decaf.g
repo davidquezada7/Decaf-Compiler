@@ -20,14 +20,14 @@ field_decl: type (arr | ID)  (COMMA (ID | arr)?)* PYC                           
 arr: ID (LSBRACKET (INT | HEX) RSBRACKET);
 
 statement: 
-   location assign_opp expr PYC                                                 #statement1
-  | method_call PYC                                                             #statement2
-  | KW_IF PA expr PC block (KW_ELSE block)?                                     #statement3
-  | KW_FOR PA ID IG expr COMMA expr PC block                                    #statement4
-  | KW_WHILE PA expr PC block                                                   #statement5
-  | KW_RETURN (expr)? PYC                                                       #statement6
-  | KW_BREAK PYC                                                                #statement7
-  |  KW_CONTINUE PYC                                                            #statement8 
+   location assign_opp expr PYC                                             #statement1 //Clase Asignation
+  | method_call PYC                                                         #statement2 //Clase Pnode
+  | KW_IF PA expr PC block (KW_ELSE block)?                                 #statement3 //Clase IfStatement
+  | KW_FOR PA ID IG expr COMMA expr PC block                                #statement4 //Clase ForStatement
+  | KW_WHILE PA expr PC block                                               #statement5 //Clase WhileStatement
+  | KW_RETURN (expr)? PYC                                                   #statement6 //Clase ReturnStatement
+  | KW_BREAK PYC                                                            #statement7 //Clase Terminal
+  |  KW_CONTINUE PYC                                                        #statement8 //Clase Terminal
   ;
 
 
