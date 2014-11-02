@@ -1,7 +1,14 @@
 boolean b;
 int a(){
-    if(d){
+    int a;
+    for(a = 3, g){
+
+      if(x){
+        int a;
+        while(s){
+          int a;
+        }
+      }
     
     }
-
 }

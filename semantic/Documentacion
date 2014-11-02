@@ -1,4 +1,6 @@
-UNICIDAD
+
+
+UNICIDAD **********************************************************************************************
 	
 	Verificamos en la gramatica donde existen posibles declaraciones de metodos y de variables.
 	
@@ -78,6 +80,101 @@ bin_op:
 
 
 
-   Habia una clase llamada Statement1 se cambio de nombre a Asignation, ya que es mas representativo
+   Habia una clase llamada Statement1 se cambio de nombre a Asignation, ya que es mas representativo 
+   y asi sucesivamente se fue cambiando. Para mas detalles se puede ver en los comentarios en la regla
+   de produccion de statement, a cada identificador le corresponde una clase. Anteriormente llamadas
+   Statement1, Statement2... y asi sucesivamente.
 
-   
+Para las clasese IfStatement, WhileStatement, ForStatement se crea un nuevo scope (un objeto Table) con el padre que recibe de parametro en el metodo, PERO sin guardar esa tabla en el arbol de tablas, o sea se van a declarar las variables, se hacen todos los chequeos, pero al salir de ese scope, ya no se usan mas y deja de existir la tabla.
+
+IfStatement:======================================
+
+	se crea un scope para la seccion de codigo si la condicion es true
+	y otro scope para la seccion de codigo si la condicion es false 
+
+
+	PRUEBA SUPERADA: cada variabla a en su propio scope, todo bien
+
+	boolean b;
+	int a(){
+	    int a;
+	    if(d){
+	      int a;
+	      if(s){
+	        int a;
+	      }
+	    }else{
+	      boolean a;
+	    }
+
+	}
+
+ForStatement:===================================
+
+	PRUEBA SUPERADA:	Error esperado, todo bien
+
+		boolean b;
+		int a(){
+		    int a;
+		    for(a = 3, f){
+		      int a;
+		      boolean a;
+		    }
+
+		}
+
+
+	PRUEBA SUPERADA:	cada variabla a en su propio scope, todo bien
+
+		boolean b;
+		int a(){
+		    int a;
+		    for(a = 3, f){
+		      int a;
+		      if(d){
+		        int a;
+		      }else{
+		        int a;
+		      }
+		    }
+		}
+
+WhileStatement: =================================
+
+	PRUEBA SUPERADA: error esperado en el scope de while, todo bien
+
+		boolean b;
+		int a(){
+		    int a;
+		    while(s){
+		      int a;
+		      boolean a;
+		    }
+		}
+
+	PRUEBA SUPERADA: cada variable en su propio scope, todo bien
+
+		boolean b;
+		int a(){
+		    int a;
+		    while(s){
+		      int a;
+		    }
+		}
+
+	PRUEBA SUPERADA: combinacion con while, if y for, todo bien
+
+	boolean b;
+	int a(){
+	    int a;
+	    for(a = 3, g){
+
+	      if(x){
+	        int a;
+	        while(s){
+	          int a;
+	        }
+	      }
+	    
+	    }
+	}

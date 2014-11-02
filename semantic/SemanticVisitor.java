@@ -98,6 +98,7 @@ public class SemanticVisitor{
 	}
 
 	public void visitBlock(Block block, Table tabla){
+		System.out.println(">>visitBlock");
 		LinkedList<FieldDeclaration> lista = block.fields;
 		for (int i = 0;i<lista.size() ;i++ ) {
 			visitFieldDeclaration(lista.get(i), tabla);
@@ -112,6 +113,12 @@ public class SemanticVisitor{
 			if(listaNodos.get(i) instanceof IfStatement){
 				visitIfStatement((IfStatement)listaNodos.get(i), tabla);
 			}
+			if(listaNodos.get(i) instanceof ForStatement){
+				visitForStatement((ForStatement)listaNodos.get(i),tabla);
+			}
+			if(listaNodos.get(i) instanceof WhileStatement){
+				visitWhileStatement ((WhileStatement)listaNodos.get(i),tabla);
+			}
 		}	
 		
 
@@ -119,12 +126,40 @@ public class SemanticVisitor{
 
 	//crear nuevo scope cada vez que se llame a If
 	public void visitIfStatement(IfStatement ifStatement, Table tabla){
-		System.out.println("entro a if statement");
-		Block bloque1 = ifStatement.block1;
-		Block bloque2 = ifStatement.block2;
-		String kwElse = ifStatement.kwELSE;
-		
-
-
+		System.out.println(">>visitIfStatement");
+		Node bloque1 = ifStatement.block1;
+		Node bloque2 = ifStatement.block2;
+		String kwelse = ifStatement.kwELSE;
+		// se crea nuevo scope que es volatil, o sea que existe solamente mientras se utiliza el if
+		// el while o el for, pero de igual forma se crea con el parametro tabla para tener referencia 
+		// a la tabla en la que esta contenido el if
+		Table tablaTemp1 = new Table(tabla);
+		Table tablaTemp2 = new Table(tabla);
+		if(bloque1 != null){
+			visitBlock((Block)bloque1, tablaTemp1);
+			if(kwelse != null){
+			visitBlock((Block)bloque2, tablaTemp2);
+			}
+		}
 	}
+
+	//crear nuevo scope cada vez que se llame a For
+	public void visitForStatement(ForStatement forStatement, Table tabla){
+		System.out.println(">>visitForStatement");
+		Node bloque = forStatement.block;
+		//se crea el scope volatil para For, con la direccion a la tabla a la que en el codigo 
+		//esta contenida
+		Table tablaTemp = new Table(tabla);
+		visitBlock((Block)bloque, tablaTemp);
+	}
+
+	//crear nuevo scope cada vez que se llame a While
+	public void visitWhileStatement(WhileStatement whileStatement, Table tabla){
+		Node bloque = whileStatement.block;
+		//se crea el scope volatil para While, con la direccion a la tabla a la que en el codigo 
+		//esta contenida
+		Table tablaTemp = new Table(tabla);
+		visitBlock((Block)bloque, tablaTemp);
+	}
+
 }
