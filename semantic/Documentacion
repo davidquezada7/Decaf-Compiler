@@ -178,3 +178,123 @@ WhileStatement: =================================
 	    
 	    }
 	}
+
+OTRAS:
+
+
+PRUEBA SUPERADA: dos funciones llamadas igual, rechazada, todo bien
+
+	void a (){
+	  
+
+	}
+	void a(){
+	  a=3;
+	}
+
+PRUEBA SUPERADA: declaracion de una variable y declaracion de un metodo llamdas igual, rechazada, todo bien
+	
+	int a;
+	void a (){
+	  
+
+	}
+
+
+
+EXISTENCIA ***************************************************************************************
+	
+	PRUEBA SUPERADA: busca recursivamente la variable, primero en el entorno local y luego hasta llegar
+					 al entorno mas alto.
+
+	int a;
+	void fun(){
+		a = 3;
+	}
+
+	PRUEBA SUPERADA: "error: 'a' is not definied"
+
+	void fun(){
+		a = 3;
+	}
+
+	PRUEBA SUPERADA: una declaracion en el scope padre y una asignacion en scope utilizando varios scopes
+
+	int a;
+	void fun(){
+
+	  while(d)
+	  {
+
+	    if(s){
+	      a = 3;
+	    }
+	  }
+	  
+	}
+
+NOTA: Importante cambio en la clase Table, por cuestiones de busqueda, en la funcion "containsKey" recibia una variable y la buscaba en las dos hashtables de Table (variables, funciones) y devolvia verdadero si encontraba la variable, pero esto tiene un inconveniente, se explica con un ejemplo:
+
+int a (){
+  
+}
+void fun(){
+  a=3;
+}
+
+como la funcion se guardo en la hashtable "funciones" cuando se busque "a", no va a dar problema lo que si deberia de dar problema.
+
+La solucion sera crear dos fuciones, una que busque en la hashtable "variables" para las variables, y otra que busque en "funciones" para las funciones.
+
+En otras palabras containsKey se separara en dos, en containsVar y en containsFun y cada una buscara en la que le corresponda.
+
+PRUEBA SUPERADA: error en la llamada de funcion, no existe la declaracion de f
+
+	int a;
+
+	void fun (){
+	    a[f()]=1;
+	  
+	}
+
+PRUEBA SUPERADA: error porque la funcion d y h y la variable k no estan definidas
+
+	int a;
+	int f(){
+	}
+	void fun (){
+	    a[f(d(),h(),k)]=1;
+	  
+	}
+
+A CONTINUACION DESCRIBIREMOS LO QUE VAMOS A IMPLEMENTAR PARA LA SIGUIENTE PARTE DE LA GRAMATICA
+
+location puede tener un expr, ese expr puede tener un location y un method_call, eso ya esta implementado, ahora lo que vamos a implementar van a ser los bin_op, cada bin_op (bin1, bin2, etc.) devuelve un tipo de objeto, excepto el bin9, cada uno de esos tiene otra vez bin_op entonces hay que hacer la llamada al visit que corresponda y al final de cuentas se debe de elegir un expr2 que puede ser location o method_call
+
+
+location: (ID | ID LSBRACKET expr RSBRACKET)           #loc;
+
+expr:             																		                 
+   location               																		                  
+  | method_call          																		                  
+  | literal                      																              
+  | bin_op             																		               
+   ;               
+
+bin_op:
+    RES bin_op             				  				#bin1
+  | NO bin_op           				 				#bin2
+  | bin_op (MULT|DIV|PRCNT) bin_op        				#bin3		
+  | bin_op (PLUS|RES) bin_op           	 	 			#bin4
+  | bin_op (MENOR|MAYOR|MENORIGUAL|MAYORIGUAL) bin_op   #bin5											
+  | bin_op (DIG|NOIGUAL) bin_op                         #bin6
+  | bin_op AND bin_op                                   #bin7
+  | bin_op OR bin_op            						#bin8
+  | expr2                                               #bin9
+   ;
+
+expr2:
+    location                                                                
+  | method_call                                                             
+  | literal
+  ;

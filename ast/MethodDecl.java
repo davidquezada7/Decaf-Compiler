@@ -18,17 +18,26 @@ public class MethodDecl extends Node{
 		this.bloque = b;
 	}
 
-	public void print(String padding){
-		System.out.print(methodT + " ");
-		System.out.print(methodN + " ");
+	 public void print(String padding){
 
-		for(int a = 0; a < v.size() ;a++){
-			System.out.print(padding + type.get(a)+" ");
-			System.out.print(padding + v.get(a)+" ");
-		}
-		System.out.println("");
-		this.bloque.print(padding);
-		
-	}
-
+	   if ((methodT.equals("int")) || (methodT.equals("boolean"))) {
+		   System.out.print(methodT + " ");
+		   System.out.print(methodN + " ");
+		   for(int a = 1; a < v.size() ;a++){
+		  	System.out.print(padding + type.get(a)+" ");
+		   	System.out.print(padding + v.get(a)+" ");
+		   }
+		   System.out.println("");
+		   this.bloque.print(padding);
+		  }else{
+		   System.out.print(methodT + " ");
+		   System.out.print(methodN + " ");
+		   for(int a = 0; a < v.size() ;a++){
+		    System.out.print(padding + type.get(a)+" ");
+		    System.out.print(padding + v.get(a)+" ");
+		   }
+		   System.out.println("");
+		   this.bloque.print(padding);
+		  }
+ 		}
 }

@@ -44,12 +44,28 @@ public class Table{
 			
 	}
 
-	public Boolean containsKey(String key){
-		if(variables.containsKey(key)||funciones.containsKey(key)){
+	// public Boolean containsKey(String key){
+	// 	if(variables.containsKey(key)||funciones.containsKey(key)){
+	// 		return true;
+	// 	}else{
+	// 		return false;
+	// 	}
+		
+	// }
+
+	public Boolean containsVar(String key){
+		if(variables.containsKey(key)){
 			return true;
 		}else{
 			return false;
 		}
-		
+	}
+
+	public Boolean containsFunc(String key){
+		if(funciones.containsKey(key)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

@@ -23,15 +23,14 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 		for(Decaf.Callout_declContext c : listC){
 			root.add(visit(c));							//visitar cada expresion
 		}
-		
-		for(Decaf.Method_declContext m : listM){
-			root.add(visit(m));							//visitar cada expresion
-		}
 
 		for(Decaf.Field_declContext f : listF){
 			root.add(visit(f));							//visitar cada expresion
 		}
-		
+
+		for(Decaf.Method_declContext m : listM){
+			root.add(visit(m));							//visitar cada expresion
+		}
 
 		return root;
 	}	

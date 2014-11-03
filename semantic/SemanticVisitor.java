@@ -29,8 +29,10 @@ public class SemanticVisitor{
 		List<String> var = fieldDeclaration.var;
 		List<String> arr = fieldDeclaration.arr;
 		
+		//se agrega a la tabla la lista de los var y de los arr, no nos interesa el orden ni tampoco
+		//si variable o array
 		for (int i = 0;i<var.size() ;i++ ) {
-			if(!tabla.containsKey(var.get(i))){
+			if(!tabla.containsVar(var.get(i))){
 				tabla.addToVariables(var.get(i), type);
 			}else{
 				System.out.println("Error: "+var.get(i)+" is already defined");
@@ -38,7 +40,7 @@ public class SemanticVisitor{
 		}
 
 		for (int i=0;i<arr.size() ;i++ ) {
-			if(!tabla.containsKey(arr.get(i))){
+			if(!tabla.containsVar(arr.get(i))){
 				tabla.addToVariables(arr.get(i), type);
 			}else{
 				System.out.println("Error: "+arr.get(i)+" is already defined");
@@ -48,7 +50,7 @@ public class SemanticVisitor{
 //METHOD DECLARATION
 	public void visitMethodDeclaration(MethodDecl methodDecl, Table tabla){
 		//nombre y tipo del metodo
-		System.out.println(">>visitFieldDeclaration");
+		System.out.println(">>visitMethodDeclaration");
 		String nombre = methodDecl.methodN;
 		String tipo = methodDecl.methodT;
 		//IMPORTANTE: para los parametros, cuando es void la lista esta bien, no hay issues
@@ -59,42 +61,50 @@ public class SemanticVisitor{
 		List tipos = methodDecl.type;
 		
 
-		//System.out.println(nombre +" "+tipo);
-		//agregamos el nombre de la funcion a la tabla, y en el value se crea el nuevo scope
-		tabla.addToFunciones(nombre, tabla);
-		//obtenemos el nuevo scope del metodo
-		Table nuevaTabla = tabla.getTable(nombre);
-		//agregamos todos los parametros en el scope obtenido
+		//VERIFICACION DE UNICIDAD PARA EL METODO
+		//NOTA: este compilador no soporta 2 variables llamadas igual o dos funciones llamadas igual 
+		//o una variable y una funcion a llamada igual 
 
-		//segun la nota de arriba ('IMPORTANTE'), vamos a escribir el codigo para no repetir
-		//los parametros y entonces empezara en uno, para obviar la primera casilla
-		if(tipo.equals("void")){
-			for (int i=0;i<variables.size() ;i++ ) {
-				if(!nuevaTabla.containsKey((String)variables.get(i))){
-					nuevaTabla.addToVariables((String)variables.get(i),(String)tipos.get(i));
-				}else{
-					System.out.println("Error: '"+(String)variables.get(i)+"' is already defined");
+		if(!(tabla.containsVar(nombre)||tabla.containsFunc(nombre))){
+		//agregamos el nombre de la funcion a la tabla, y en el value se crea el nuevo scope
+			tabla.addToFunciones(nombre, tabla);
+		
+			//obtenemos el nuevo scope del metodo
+			Table nuevaTabla = tabla.getTable(nombre);
+			//agregamos todos los parametros en el scope obtenido
+
+			//AGREGAR PARAMETROS DE LA FUNCION AL NUEVO SCOPE
+			//segun la nota de arriba ('IMPORTANTE'), vamos a escribir el codigo para no repetir
+			//los parametros y entonces empezara en uno, para obviar la primera casilla
+			if(tipo.equals("void")){
+				for (int i=0;i<variables.size() ;i++ ) {
+					if(!(nuevaTabla.containsVar((String)variables.get(i))) ){
+						nuevaTabla.addToVariables((String)variables.get(i),(String)tipos.get(i));
+					}else{
+						System.out.println("Error: '"+(String)variables.get(i)+"' is already defined");
+					}
 				}
+			}else{
+				for (int i=1;i<variables.size() ;i++ ) {
+					if(!nuevaTabla.containsVar((String)variables.get(i))){
+						nuevaTabla.addToVariables((String)variables.get(i),(String)tipos.get(i));
+					}else{
+						System.out.println("Error: '"+(String)variables.get(i)+"' is already defined");
+					}
+				}
+			}
+
+
+			//agregamos el tipo de metodo que es, accesando al campo 'tipo' de la clase Table
+			nuevaTabla.tipo = tipo;	
+			Block nodoBlock = methodDecl.bloque;
+			if(nodoBlock != null){
+				
+				visitBlock(nodoBlock,nuevaTabla);
 			}
 		}else{
-			for (int i=1;i<variables.size() ;i++ ) {
-				if(!nuevaTabla.containsKey((String)variables.get(i))){
-					nuevaTabla.addToVariables((String)variables.get(i),(String)tipos.get(i));
-				}else{
-					System.out.println("Error: '"+(String)variables.get(i)+"' is already defined");
-				}
-			}
+			System.out.println("error: "+nombre+" is already defined");
 		}
-
-		//agregamos el tipo de metodo que es, accesando al campo 'tipo' de la clase Table
-		nuevaTabla.tipo = tipo;	
-		Block nodoBlock = methodDecl.bloque;
-		if(nodoBlock != null){
-			
-			visitBlock(nodoBlock,nuevaTabla);
-		}
-
-	
 	}
 
 	public void visitBlock(Block block, Table tabla){
@@ -119,9 +129,127 @@ public class SemanticVisitor{
 			if(listaNodos.get(i) instanceof WhileStatement){
 				visitWhileStatement ((WhileStatement)listaNodos.get(i),tabla);
 			}
+			if(listaNodos.get(i) instanceof Asignation){
+				visitAsignation((Asignation)listaNodos.get(i), tabla);
+			}
 		}	
-		
+	}
 
+	public void visitAsignation(Asignation asignation, Table tabla){
+		Node location = asignation.location;
+		Node op = asignation.op;
+		Node expr = asignation.expr;
+		
+		visitLocation((Location)location, tabla);
+		//System.out.println("tengo los ojos aguados");
+	}
+
+	public void visitLocation(Location location, Table tabla){
+		String variable = location.variable;
+		Node expresion = location.expresion;
+		//si es arreglo se verifica si tiene una variable en los corchetes en el else se verifica si existe
+		//dicha variable
+		System.out.println(expresion.getClass());
+		if(expresion == null){
+			searchVar(variable,tabla);	
+		}else{
+			if(expresion instanceof Location){
+				searchVar(variable,tabla);
+				visitLocation((Location)expresion,tabla);
+			}
+			if(expresion instanceof AuxMCall1){
+				visitAuxCall1((AuxMCall1)expresion,tabla);
+			}
+			//implementacion de la parte de bin_op de la gramatica
+			if(expresion instanceof Res){
+				visitRes((Res)expresion, tabla);
+			}
+		}
+	}
+
+	public void visitRes(Res res, Table tabla){
+		Node binop = res.binop;
+		if(binop instanceof Res){
+			visitRes((Res)binop, tabla);
+		}
+		if(binop instanceof Negation){
+			visitNegation((Negation)binop, tabla);
+		}
+		if(binop instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop, tabla);
+		}
+	}
+
+	public void visitIntBinOp(IntBinOp intBinOp, Table tabla){
+		System.out.println("entre a intibinop");
+	}
+
+	public void visitNegation(Negation negation, Table tabla){
+		
+	}
+
+	public void visitAuxCall1(AuxMCall1 auxMCall1, Table tabla){
+		String variable = auxMCall1.id;
+		LinkedList<Node> expresiones = auxMCall1.expresiones;
+
+		if(expresiones==null){
+			searchFunc(variable,tabla);
+		}else{
+			searchFunc(variable,tabla);
+			for (int i=0;i<expresiones.size() ;i++ ) {
+				if(expresiones.get(i) instanceof Location){
+					visitLocation((Location)expresiones.get(i),tabla);
+				}
+				if(expresiones.get(i) instanceof AuxMCall1){
+					visitAuxCall1((AuxMCall1)expresiones.get(i),tabla);					
+				}
+			}
+		}
+
+	}
+
+//Es la funcion recursiva para buscar una variable
+	public void searchVar(String variable, Table tabla){
+		if(tabla.containsVar(variable)){
+		}else{
+			if (tabla.padre!= null) {
+				searchVar(variable,tabla.padre);
+			}else{
+				//System.out.println("entro2");
+				System.out.println("error: variable "+variable+" is not defined");
+			}
+		}
+	}
+//Es la funcion recursiva para buscar una funcion
+	public void searchFunc(String variable, Table tabla){
+		if(tabla.containsFunc(variable)){
+		}else{
+			if (tabla.padre!= null) {
+				searchFunc(variable,tabla.padre);
+			}else{
+				//System.out.println("entro2");
+				System.out.println("error: function "+variable+" is not defined");
+			}
+		}
+	}
+
+	//crear nuevo scope cada vez que se llame a While
+	public void visitWhileStatement(WhileStatement whileStatement, Table tabla){
+		Node bloque = whileStatement.block;
+		//se crea el scope volatil para While, con la direccion a la tabla a la que en el codigo 
+		//esta contenida
+		Table tablaTemp = new Table(tabla);
+		visitBlock((Block)bloque, tablaTemp);
+	}
+
+	//crear nuevo scope cada vez que se llame a For
+	public void visitForStatement(ForStatement forStatement, Table tabla){
+		System.out.println(">>visitForStatement");
+		Node bloque = forStatement.block;
+		//se crea el scope volatil para For, con la direccion a la tabla a la que en el codigo 
+		//esta contenida
+		Table tablaTemp = new Table(tabla);
+		visitBlock((Block)bloque, tablaTemp);
 	}
 
 	//crear nuevo scope cada vez que se llame a If
@@ -142,24 +270,4 @@ public class SemanticVisitor{
 			}
 		}
 	}
-
-	//crear nuevo scope cada vez que se llame a For
-	public void visitForStatement(ForStatement forStatement, Table tabla){
-		System.out.println(">>visitForStatement");
-		Node bloque = forStatement.block;
-		//se crea el scope volatil para For, con la direccion a la tabla a la que en el codigo 
-		//esta contenida
-		Table tablaTemp = new Table(tabla);
-		visitBlock((Block)bloque, tablaTemp);
-	}
-
-	//crear nuevo scope cada vez que se llame a While
-	public void visitWhileStatement(WhileStatement whileStatement, Table tabla){
-		Node bloque = whileStatement.block;
-		//se crea el scope volatil para While, con la direccion a la tabla a la que en el codigo 
-		//esta contenida
-		Table tablaTemp = new Table(tabla);
-		visitBlock((Block)bloque, tablaTemp);
-	}
-
 }

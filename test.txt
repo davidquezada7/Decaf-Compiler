@@ -1,14 +1,10 @@
-boolean b;
-int a(){
-    int a;
-    for(a = 3, g){
+int a, j;
 
-      if(x){
-        int a;
-        while(s){
-          int a;
-        }
-      }
-    
-    }
+int f(){
+  
+}
+
+void fun (){
+    a[- s+k]=1;
+  
 }

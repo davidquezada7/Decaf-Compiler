@@ -39,8 +39,8 @@ location: (ID | ID LSBRACKET expr RSBRACKET)                                 #lo
 expr:             																		                 
    location               																		                  
   | method_call          																		                  
-  | literal                      																              
-  | bin_op             																		               
+  | literal                        																              
+  | bin_op        																		               
    ;               
 
 bin_op:
