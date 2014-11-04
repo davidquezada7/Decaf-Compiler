@@ -259,6 +259,18 @@ public class DecafBaseListener implements DecafListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBin10(@NotNull Decaf.Bin10Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBin10(@NotNull Decaf.Bin10Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCalloutArg2(@NotNull Decaf.CalloutArg2Context ctx) { }
 	/**
 	 * {@inheritDoc}

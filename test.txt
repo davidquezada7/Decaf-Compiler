@@ -1,10 +1,6 @@
-int a, j;
-
-int f(){
-  
-}
-
+int d,h,j;
 void fun (){
-    a[- s+k]=1;
+  
+  return d + ( h+j);
   
 }

@@ -160,6 +160,13 @@ public class DecafBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitBin10(@NotNull Decaf.Bin10Context ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitCalloutArg2(@NotNull Decaf.CalloutArg2Context ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

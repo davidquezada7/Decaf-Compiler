@@ -418,6 +418,12 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 	}
 
 	@Override
+	public Node visitBin10(Decaf.Bin10Context ctx){
+		Decaf.Bin_opContext binop = ctx.bin_op();
+		return new Parentesis(visit(binop));
+	}
+
+	@Override
 	public Node visitMethodcall(Decaf.MethodcallContext ctx){
 		String id = ctx.ID().getSymbol().getText();
 		LinkedList<Node> argumentos = new LinkedList<Node>();

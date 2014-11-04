@@ -150,6 +150,13 @@ public interface DecafVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement1(@NotNull Decaf.Statement1Context ctx);
 	/**
+	 * Visit a parse tree produced by the {@code bin10}
+	 * labeled alternative in {@link Decaf#bin_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBin10(@NotNull Decaf.Bin10Context ctx);
+	/**
 	 * Visit a parse tree produced by the {@code calloutArg2}
 	 * labeled alternative in {@link Decaf#callout_arg}.
 	 * @param ctx the parse tree

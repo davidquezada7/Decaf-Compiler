@@ -132,7 +132,18 @@ public class SemanticVisitor{
 			if(listaNodos.get(i) instanceof Asignation){
 				visitAsignation((Asignation)listaNodos.get(i), tabla);
 			}
+			if(listaNodos.get(i) instanceof Pnode){
+				visitPnode((Pnode)listaNodos.get(i), tabla);
+			}
+			if(listaNodos.get(i) instanceof ReturnStatement){
+				visitReturnStatement((ReturnStatement) listaNodos.get(i),tabla);
+			}
 		}	
+	}
+
+	public void visitPnode(Pnode pnode, Table tabla){
+		Node nd = pnode.nd;
+		visitAuxCall1((AuxMCall1)nd, tabla);
 	}
 
 	public void visitAsignation(Asignation asignation, Table tabla){
@@ -142,6 +153,31 @@ public class SemanticVisitor{
 		
 		visitLocation((Location)location, tabla);
 		//System.out.println("tengo los ojos aguados");
+
+		if(expr instanceof Res){
+			visitRes((Res)expr, tabla);
+		}
+		if(expr instanceof Negation){
+			visitNegation((Negation)expr, tabla);
+		}
+		if(expr instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)expr, tabla);
+		}
+		if(expr instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)expr, tabla);
+		}
+		if(expr instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)expr, tabla);
+		}
+		if(expr instanceof Parentesis){
+			visitParentesis((Parentesis)expr, tabla);
+		}
+		if(expr instanceof Location){
+			visitLocation((Location)expr, tabla);
+		}
+		if(expr instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)expr, tabla);
+		}
 	}
 
 	public void visitLocation(Location location, Table tabla){
@@ -149,10 +185,11 @@ public class SemanticVisitor{
 		Node expresion = location.expresion;
 		//si es arreglo se verifica si tiene una variable en los corchetes en el else se verifica si existe
 		//dicha variable
-		System.out.println(expresion.getClass());
+		
 		if(expresion == null){
 			searchVar(variable,tabla);	
 		}else{
+			System.out.println(expresion.getClass());
 			if(expresion instanceof Location){
 				searchVar(variable,tabla);
 				visitLocation((Location)expresion,tabla);
@@ -163,6 +200,9 @@ public class SemanticVisitor{
 			//implementacion de la parte de bin_op de la gramatica
 			if(expresion instanceof Res){
 				visitRes((Res)expresion, tabla);
+			}
+			if(expresion instanceof Negation){
+				visitNegation((Negation)expresion, tabla);
 			}
 		}
 	}
@@ -178,14 +218,242 @@ public class SemanticVisitor{
 		if(binop instanceof IntBinOp){
 			visitIntBinOp((IntBinOp)binop, tabla);
 		}
-	}
-
-	public void visitIntBinOp(IntBinOp intBinOp, Table tabla){
-		System.out.println("entre a intibinop");
+		if(binop instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop, tabla);
+		}
+		if(binop instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop, tabla);
+		}
+		if(binop instanceof Parentesis){
+			visitParentesis((Parentesis)binop, tabla);
+		}
+		if(binop instanceof Location){
+			visitLocation((Location)binop, tabla);
+		}
+		if(binop instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop, tabla);
+		}
 	}
 
 	public void visitNegation(Negation negation, Table tabla){
-		
+		Node binop = negation.binop;
+		if(binop instanceof Res){
+			visitRes((Res)binop, tabla);
+		}
+		if(binop instanceof Negation){
+			visitNegation((Negation)binop, tabla);
+		}
+		if(binop instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop, tabla);
+		}
+		if(binop instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop, tabla);
+		}
+		if(binop instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop, tabla);
+		}
+		if(binop instanceof Parentesis){
+			visitParentesis((Parentesis)binop, tabla);
+		}
+		if(binop instanceof Location){
+			visitLocation((Location)binop, tabla);
+		}
+		if(binop instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop, tabla);
+		}
+	}
+
+	public void visitIntBinOp(IntBinOp intBinOp, Table tabla){
+		Node binop1 = intBinOp.binop1;
+		Node binop2 = intBinOp.binop2;
+		//HIJO IZQUIERDO
+		if(binop1 instanceof Res){
+			visitRes((Res)binop1, tabla);
+		}
+		if(binop1 instanceof Negation){
+			visitNegation((Negation)binop1, tabla);
+		}
+		if(binop1 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof Parentesis){
+			visitParentesis((Parentesis)binop1, tabla);
+		}
+		if(binop1 instanceof Location){
+			visitLocation((Location)binop1, tabla);
+		}
+		if(binop1 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop1, tabla);
+		}
+		//HIJO DERECHO
+		if(binop2 instanceof Res){
+			visitRes((Res)binop2, tabla);
+		}
+		if(binop2 instanceof Negation){
+			visitNegation((Negation)binop2, tabla);
+		}
+		if(binop2 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof Parentesis){
+			visitParentesis((Parentesis)binop2, tabla);
+		}
+		if(binop2 instanceof Location){
+			visitLocation((Location)binop2, tabla);
+		}
+		if(binop2 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop2, tabla);
+		}
+	}
+	
+	public void visitComparisonBinOp(ComparisonBinOp comparisonBinOp, Table tabla){
+		Node binop1 = comparisonBinOp.binop1;
+		Node binop2 = comparisonBinOp.binop2;
+		//HIJO IZQUIERDO
+		if(binop1 instanceof Res){
+			visitRes((Res)binop1, tabla);
+		}
+		if(binop1 instanceof Negation){
+			visitNegation((Negation)binop1, tabla);
+		}
+		if(binop1 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof Parentesis){
+			visitParentesis((Parentesis)binop1, tabla);
+		}
+		if(binop1 instanceof Location){
+			visitLocation((Location)binop1, tabla);
+		}
+		if(binop1 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop1, tabla);
+		}
+		//HIJO DERECHO
+		if(binop2 instanceof Res){
+			visitRes((Res)binop2, tabla);
+		}
+		if(binop2 instanceof Negation){
+			visitNegation((Negation)binop2, tabla);
+		}
+		if(binop2 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof Parentesis){
+			visitParentesis((Parentesis)binop2, tabla);
+		}
+		if(binop2 instanceof Location){
+			visitLocation((Location)binop2, tabla);
+		}
+		if(binop2 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop2, tabla);
+		}
+	}
+	
+	public void visitBooleanBinOp(BooleanBinOp booleanBinOp, Table tabla){
+		Node binop1 = booleanBinOp.binop1;
+		Node binop2 = booleanBinOp.binop2;
+		//HIJO IZQUIERDO
+		if(binop1 instanceof Res){
+			visitRes((Res)binop1, tabla);
+		}
+		if(binop1 instanceof Negation){
+			visitNegation((Negation)binop1, tabla);
+		}
+		if(binop1 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop1, tabla);
+		}
+		if(binop1 instanceof Parentesis){
+			visitParentesis((Parentesis)binop1, tabla);
+		}
+		if(binop1 instanceof Location){
+			visitLocation((Location)binop1, tabla);
+		}
+		if(binop1 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop1, tabla);
+		}
+		//HIJO DERECHO
+		if(binop2 instanceof Res){
+			visitRes((Res)binop2, tabla);
+		}
+		if(binop2 instanceof Negation){
+			visitNegation((Negation)binop2, tabla);
+		}
+		if(binop2 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop2, tabla);
+		}
+		if(binop2 instanceof Parentesis){
+			visitParentesis((Parentesis)binop2, tabla);
+		}
+		if(binop2 instanceof Location){
+			visitLocation((Location)binop2, tabla);
+		}
+		if(binop2 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop2, tabla);
+		}
+	}
+
+	public void visitParentesis(Parentesis parentesis, Table tabla){
+		Node binop = parentesis.binop;
+		if(binop instanceof Res){
+			visitRes((Res)binop, tabla);
+		}
+		if(binop instanceof Negation){
+			visitNegation((Negation)binop, tabla);
+		}
+		if(binop instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)binop, tabla);
+		}
+		if(binop instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)binop, tabla);
+		}
+		if(binop instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)binop, tabla);
+		}
+		if(binop instanceof Parentesis){
+			visitParentesis((Parentesis)binop, tabla);
+		}
+		if(binop instanceof Location){
+			visitLocation((Location)binop, tabla);
+		}
+		if(binop instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)binop, tabla);
+		}
 	}
 
 	public void visitAuxCall1(AuxMCall1 auxMCall1, Table tabla){
@@ -235,7 +503,35 @@ public class SemanticVisitor{
 
 	//crear nuevo scope cada vez que se llame a While
 	public void visitWhileStatement(WhileStatement whileStatement, Table tabla){
+		Node expr = whileStatement.expr;
 		Node bloque = whileStatement.block;
+		
+		//Existencia
+		if(expr instanceof Res){
+			visitRes((Res)expr, tabla);
+		}
+		if(expr instanceof Negation){
+			visitNegation((Negation)expr, tabla);
+		}
+		if(expr instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)expr, tabla);
+		}
+		if(expr instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)expr, tabla);
+		}
+		if(expr instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)expr, tabla);
+		}
+		if(expr instanceof Parentesis){
+			visitParentesis((Parentesis)expr, tabla);
+		}
+		if(expr instanceof Location){
+			visitLocation((Location)expr, tabla);
+		}
+		if(expr instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)expr, tabla);
+		}
+
 		//se crea el scope volatil para While, con la direccion a la tabla a la que en el codigo 
 		//esta contenida
 		Table tablaTemp = new Table(tabla);
@@ -245,6 +541,65 @@ public class SemanticVisitor{
 	//crear nuevo scope cada vez que se llame a For
 	public void visitForStatement(ForStatement forStatement, Table tabla){
 		System.out.println(">>visitForStatement");
+		String id = forStatement.id;
+		//EXISTENCIA
+		searchVar(id, tabla);
+
+		Node expr1 = forStatement.expr1;
+		if(expr1 instanceof Res){
+			visitRes((Res)expr1, tabla);
+		}
+		if(expr1 instanceof Negation){
+			visitNegation((Negation)expr1, tabla);
+		}
+		if(expr1 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)expr1, tabla);
+		}
+		if(expr1 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)expr1, tabla);
+		}
+		if(expr1 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)expr1, tabla);
+		}
+		if(expr1 instanceof Parentesis){
+			visitParentesis((Parentesis)expr1, tabla);
+		}
+		if(expr1 instanceof Location){
+			visitLocation((Location)expr1, tabla);
+		}
+		if(expr1 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)expr1, tabla);
+		}
+		// expr2
+		Node expr2 = forStatement.expr2;
+
+		if(expr2 instanceof Res){
+			visitRes((Res)expr2, tabla);
+		}
+		if(expr2 instanceof Negation){
+			visitNegation((Negation)expr2, tabla);
+		}
+		if(expr2 instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)expr2, tabla);
+		}
+		if(expr2 instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)expr2, tabla);
+		}
+		if(expr2 instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)expr2, tabla);
+		}
+		if(expr2 instanceof Parentesis){
+			visitParentesis((Parentesis)expr2, tabla);
+		}
+		if(expr2 instanceof Location){
+			visitLocation((Location)expr2, tabla);
+		}
+		if(expr2 instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)expr2, tabla);
+		}
+
+
+		//
 		Node bloque = forStatement.block;
 		//se crea el scope volatil para For, con la direccion a la tabla a la que en el codigo 
 		//esta contenida
@@ -255,9 +610,39 @@ public class SemanticVisitor{
 	//crear nuevo scope cada vez que se llame a If
 	public void visitIfStatement(IfStatement ifStatement, Table tabla){
 		System.out.println(">>visitIfStatement");
+		Node expr = ifStatement.expr;
 		Node bloque1 = ifStatement.block1;
-		Node bloque2 = ifStatement.block2;
 		String kwelse = ifStatement.kwELSE;
+		Node bloque2 = ifStatement.block2;
+		
+
+		//Existencia
+		if(expr instanceof Res){
+			visitRes((Res)expr, tabla);
+		}
+		if(expr instanceof Negation){
+			visitNegation((Negation)expr, tabla);
+		}
+		if(expr instanceof IntBinOp){
+			visitIntBinOp((IntBinOp)expr, tabla);
+		}
+		if(expr instanceof ComparisonBinOp){
+			visitComparisonBinOp((ComparisonBinOp)expr, tabla);
+		}
+		if(expr instanceof BooleanBinOp){
+			visitBooleanBinOp((BooleanBinOp)expr, tabla);
+		}
+		if(expr instanceof Parentesis){
+			visitParentesis((Parentesis)expr, tabla);
+		}
+		if(expr instanceof Location){
+			visitLocation((Location)expr, tabla);
+		}
+		if(expr instanceof AuxMCall1){
+			visitAuxCall1((AuxMCall1)expr, tabla);
+		}
+
+
 		// se crea nuevo scope que es volatil, o sea que existe solamente mientras se utiliza el if
 		// el while o el for, pero de igual forma se crea con el parametro tabla para tener referencia 
 		// a la tabla en la que esta contenido el if
@@ -267,6 +652,36 @@ public class SemanticVisitor{
 			visitBlock((Block)bloque1, tablaTemp1);
 			if(kwelse != null){
 			visitBlock((Block)bloque2, tablaTemp2);
+			}
+		}
+	}
+
+	public void visitReturnStatement(ReturnStatement returnStatement, Table tabla){
+		Node expresion = returnStatement.expresion;
+		if(expresion!= null){
+			if(expresion instanceof Res){
+			visitRes((Res)expresion, tabla);
+			}
+			if(expresion instanceof Negation){
+				visitNegation((Negation)expresion, tabla);
+			}
+			if(expresion instanceof IntBinOp){
+				visitIntBinOp((IntBinOp)expresion, tabla);
+			}
+			if(expresion instanceof ComparisonBinOp){
+				visitComparisonBinOp((ComparisonBinOp)expresion, tabla);
+			}
+			if(expresion instanceof BooleanBinOp){
+				visitBooleanBinOp((BooleanBinOp)expresion, tabla);
+			}
+			if(expresion instanceof Parentesis){
+				visitParentesis((Parentesis)expresion, tabla);
+			}
+			if(expresion instanceof Location){
+				visitLocation((Location)expresion, tabla);
+			}
+			if(expresion instanceof AuxMCall1){
+				visitAuxCall1((AuxMCall1)expresion, tabla);
 			}
 		}
 	}

@@ -53,6 +53,7 @@ bin_op:
   | bin_op AND bin_op                                                        #bin7
   | bin_op OR bin_op            																	           #bin8
   | expr2                                                                    #bin9
+  | PA bin_op PC                                                             #bin10
    ;
 
 expr2:

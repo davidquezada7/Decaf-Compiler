@@ -243,6 +243,18 @@ public interface DecafListener extends ParseTreeListener {
 	 */
 	void exitStatement1(@NotNull Decaf.Statement1Context ctx);
 	/**
+	 * Enter a parse tree produced by the {@code bin10}
+	 * labeled alternative in {@link Decaf#bin_op}.
+	 * @param ctx the parse tree
+	 */
+	void enterBin10(@NotNull Decaf.Bin10Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bin10}
+	 * labeled alternative in {@link Decaf#bin_op}.
+	 * @param ctx the parse tree
+	 */
+	void exitBin10(@NotNull Decaf.Bin10Context ctx);
+	/**
 	 * Enter a parse tree produced by the {@code calloutArg2}
 	 * labeled alternative in {@link Decaf#callout_arg}.
 	 * @param ctx the parse tree

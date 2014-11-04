@@ -271,6 +271,8 @@ A CONTINUACION DESCRIBIREMOS LO QUE VAMOS A IMPLEMENTAR PARA LA SIGUIENTE PARTE 
 
 location puede tener un expr, ese expr puede tener un location y un method_call, eso ya esta implementado, ahora lo que vamos a implementar van a ser los bin_op, cada bin_op (bin1, bin2, etc.) devuelve un tipo de objeto, excepto el bin9, cada uno de esos tiene otra vez bin_op entonces hay que hacer la llamada al visit que corresponda y al final de cuentas se debe de elegir un expr2 que puede ser location o method_call
 
+cada visit de estos binop puede llamar a cualquier tipo de binop.
+
 
 location: (ID | ID LSBRACKET expr RSBRACKET)           #loc;
 
@@ -298,3 +300,6 @@ expr2:
   | method_call                                                             
   | literal
   ;
+
+
+Ya se recorrieron todos los posibles caminos para verificar si una variabla o una funcion existen. Todo bien :)
