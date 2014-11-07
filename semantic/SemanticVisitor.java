@@ -189,9 +189,9 @@ public class SemanticVisitor{
 		if(expresion == null){
 			searchVar(variable,tabla);	
 		}else{
-			System.out.println(expresion.getClass());
+			//System.out.println(expresion.getClass());
+			searchVar(variable,tabla);
 			if(expresion instanceof Location){
-				searchVar(variable,tabla);
 				visitLocation((Location)expresion,tabla);
 			}
 			if(expresion instanceof AuxMCall1){
@@ -203,6 +203,18 @@ public class SemanticVisitor{
 			}
 			if(expresion instanceof Negation){
 				visitNegation((Negation)expresion, tabla);
+			}
+			if(expresion instanceof IntBinOp){
+				visitIntBinOp((IntBinOp)expresion, tabla);
+			}
+			if(expresion instanceof ComparisonBinOp){
+				visitComparisonBinOp((ComparisonBinOp)expresion, tabla);
+			}
+			if(expresion instanceof BooleanBinOp){
+				visitBooleanBinOp((BooleanBinOp)expresion, tabla);
+			}
+			if(expresion instanceof Parentesis){
+				visitParentesis((Parentesis)expresion, tabla);
 			}
 		}
 	}
