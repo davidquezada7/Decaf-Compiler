@@ -94,7 +94,7 @@ public class SemanticVisitor{
 				}
 			}
 
-
+			//BLOCK
 			//agregamos el tipo de metodo que es, accesando al campo 'tipo' de la clase Table
 			nuevaTabla.tipo = tipo;	
 			Block nodoBlock = methodDecl.bloque;

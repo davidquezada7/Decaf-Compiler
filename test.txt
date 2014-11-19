@@ -1,3 +1,4 @@
-  void main() {
-    a = 34;	// identifier used before being declared
-  }							
+int a;
+void main(){
+	a = ;
+}

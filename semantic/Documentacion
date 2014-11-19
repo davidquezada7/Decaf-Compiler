@@ -303,3 +303,21 @@ expr2:
 
 
 Ya se recorrieron todos los posibles caminos para verificar si una variabla o una funcion existen. Todo bien :)
+
+
+VERIFICACION DE TIPOS
+
+PRUEBA 1
+
+Camino gramatica:
+
+	method_decl
+	block
+	statement
+	location
+	ID
+
+int a;
+void main(){
+	a = ;
+}
