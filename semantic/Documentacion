@@ -307,17 +307,52 @@ Ya se recorrieron todos los posibles caminos para verificar si una variabla o un
 
 VERIFICACION DE TIPOS
 
-PRUEBA 1
+*Se hacen las pruebas de casos de error
+*Los casos prueba que se muestran son los que ya verifica
 
-Camino gramatica:
 
-	method_decl
-	block
-	statement
-	location
-	ID
+------LOCATION-------
+PRUEBA 1:	asignacion de una variable de diferente tipo
+
+	int a;
+	boolean b;
+
+	void main(){
+		a = b;
+	}
+
+PRUEBA 2:   asginacion de una variable de diferente tipo 
+
+	boolean a;
+	int b;
+
+	void main(){
+		a = b;
+	}
+------MEHOTD CALL--------
+PRUEBA 3:   asignacion de una funcion de diferente tipo a la variable
+	
+	boolean a;
+	int b(){
+		
+	}
+	void main(){
+		a = b();
+	}
+
+PRUEBA 4: asignacion de una funcion de diferente tipo al de la variable
+
+	int a;
+	boolean b(){
+		
+	}
+	void main(){
+		a = b();
+	}
+---------INTLITERAL-------
+PRUEBA 5: asginacion de un booleanliteral a una varaible tipo entero
 
 int a;
 void main(){
-	a = ;
+	a = true;
 }

@@ -148,28 +148,114 @@ public class SemanticVisitor{
 
 	public void visitAsignation(Asignation asignation, Table tabla){
 		Node location = asignation.location;
+		Location loc = (Location)location;
+		
+		String nameVar = loc.variable;
 		Node op = asignation.op;
 		Node expr = asignation.expr;
-		
-		visitLocation((Location)location, tabla);
+		String tipoVariable = null;
+		//TIPOS
+		//obtengo el tipo de variable a la que le voy a asignar algo para compararlo a lo que le estoy asignando
+
+		tipoVariable = visitLocation((Location)location, tabla);
+		//en visitLocation mando a llamar a un metodo que verifica si tal variable existe, si existe me devuelve 
+		//el tipo si no existe me devuelve null
+		if(tipoVariable != null){
+			if(expr instanceof Location){
+				String tipoLocationVar = visitLocation((Location)expr, tabla);
+				String nameExpVar = ((Location)expr).variable;
+				if(tipoLocationVar != null){	
+					if(!tipoLocationVar.equals(tipoVariable)){
+						System.out.println("error: Can not asign a "+ tipoLocationVar 
+						+" '"+ nameExpVar+"' to a "+ tipoVariable+" '" +nameVar+"'");
+					}
+				}
+			}else if(expr instanceof AuxMCall1){
+				String nombreFuncion = ((AuxMCall1)expr).id;	
+				String tipoFuncion = getFuncType(nombreFuncion, tabla);
+				if(!tipoVariable.equals(tipoFuncion)){
+					System.out.println("error: Can not asign a method type "+tipoFuncion
+						+" '"+nombreFuncion+"' to a "+tipoVariable+" '"+nameVar+"'");
+				}
+			}
+
+			//INT--------
+			if(tipoVariable.equals("int")){
+				if(expr instanceof BooleanLiteral){
+					System.out.println("error: Can not asign a BooleanLiteral to a int '"+nameVar+"'");
+				}
+			//BOOLEAN-------
+			}else if(tipoVariable.equals("boolean")){
+				if(expr instanceof IntLiteral){
+					System.out.println("error: Can not asign a IntLiteral to a boolean '"+nameVar+"'");
+				}
+			}
+		}
+
+		// if(tipoVariable != null){
+		// 	if(expr instanceof Location){
+		// 		String tipoLocationVar = visitLocation((Location)expr, tabla);
+		// 		String nameExpVar = ((Location)expr).variable;
+		// 		if(tipoLocationVar != null){	
+		// 			if(!tipoLocationVar.equals(tipoVariable)){
+		// 				System.out.println("error: Can not asign a "+ tipoLocationVar 
+		// 				+" '"+ nameExpVar+"' to a "+ tipoVariable+" '" +nameVar+"'");
+		// 			}
+		// 		}
+		// 	}
+		// 	if(expr instanceof AuxMCall1){
+		// 		String nombreFuncion = ((AuxMCall1)expr).id;	
+		// 		String tipoFuncion = getFuncType(nombreFuncion, tabla);
+		// 		if(!tipoVariable.equals(tipoFuncion)){
+		// 			System.out.println("error: Can not asign a method type "+tipoFuncion+" to a "+tipoVariable);
+		// 		}
+		// 	}
+		// 	if(expr instanceof IntLiteral){
+
+		// 	}
+
+		// }
 		//System.out.println("tengo los ojos aguados");
 
-		visitNode(expr, tabla);
+		//visitNode(expr, tabla);
+	}
+	//buscar recursivamente si alguna tabla contiene una funcion llamada con el nombre variable
+	//si lo encuentra hace un getTable de esa funcion y luego accede a su campo llamado tipo
+	public String getFuncType(String variable, Table tabla){
+		if(tabla.containsFunc(variable)){
+			
+			return(tabla.getTable(variable)).tipo;
+		}else{
+			if (tabla.padre!= null) {
+				return getFuncType(variable,tabla.padre);
+			}
+			return null;
+		}
+		
 	}
 
-	public void visitLocation(Location location, Table tabla){
+	public String visitLocation(Location location, Table tabla){
+		//el return devuelve el tipo de la variable que haya encontrado, int o boolean
 		String variable = location.variable;
 		Node expresion = location.expresion;
 		//si es arreglo se verifica si tiene una variable en los corchetes en el else se verifica si existe
 		//dicha variable
-		
+
+		//searchVar hace la verificacion de existencia
 		if(expresion == null){
-			searchVar(variable,tabla);	
+			// System.out.println("entre a expression null");
+			if(searchVar(variable,tabla)){
+				return tabla.getVarType(variable, tabla);
+			}	
 		}else{
 			//System.out.println(expresion.getClass());
-			searchVar(variable,tabla);
-			visitNode(expresion, tabla);
+			if(searchVar(variable,tabla)){
+				visitNode(expresion, tabla);
+				return tabla.getVarType(variable, tabla);
+			}
 		}
+
+		return null;
 	}
 
 	public void visitRes(Res res, Table tabla){
@@ -232,20 +318,23 @@ public class SemanticVisitor{
 				}
 			}
 		}
-
 	}
 
 //Es la funcion recursiva para buscar una variable
-	public void searchVar(String variable, Table tabla){
+	public Boolean searchVar(String variable, Table tabla){
+		
 		if(tabla.containsVar(variable)){
+			return true;
 		}else{
 			if (tabla.padre!= null) {
-				searchVar(variable,tabla.padre);
+				return (searchVar(variable,tabla.padre));
 			}else{
 				//System.out.println("entro2");
 				System.out.println("error: variable "+variable+" is not defined");
+				return false;
 			}
 		}
+
 	}
 //Es la funcion recursiva para buscar una funcion
 	public void searchFunc(String variable, Table tabla){

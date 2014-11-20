@@ -310,11 +310,15 @@ public class AstVisitor extends DecafBaseVisitor<Node>{
 	public Node visitLiteralBoolean(Decaf.LiteralBooleanContext ctx){
 		String literalT = ctx.BOOL_TRUE().getSymbol().getText();
 		String literalF = ctx.BOOL_FALSE().getSymbol().getText();
-		if (literalT == null) {
-			return new Literal(literalF);
-		}else{
-			return new Literal(literalT);
-		}
+
+			if (literalT == null) {
+				return new Literal(literalF);
+			}else{
+				return new Literal(literalT);
+			}
+		
+
+
 	}
 
 	@Override

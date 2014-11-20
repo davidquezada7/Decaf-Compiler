@@ -1,4 +1,4 @@
-int a;
+boolean a;
 void main(){
-	a = ;
+	a = false;
 }

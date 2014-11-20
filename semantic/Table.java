@@ -53,6 +53,18 @@ public class Table{
 		
 	// }
 
+	public String getVarType(String key, Table tabla){
+		if(tabla.containsVar(key)){
+			return tabla.variables.get(key);
+		}else{
+			if (tabla.padre!= null) {
+				return (getVarType(key,tabla.padre));
+			}else{
+				return null;
+			}
+		}	
+	}
+
 	public Boolean containsVar(String key){
 		if(variables.containsKey(key)){
 			return true;
